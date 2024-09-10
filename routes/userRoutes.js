@@ -26,7 +26,7 @@ router.route('/profile').put(protect, userController.updateUserProfile)
 //@route    Route User (GET)
 //@desc     route pour récuperer d'un user
 //@acess    Private
-router.route('/profile/:_id').get(userController.getUserProfile)
+router.route('/profile/:_id').get(protect, userController.getUserProfile)
 
 
 module.exports = router

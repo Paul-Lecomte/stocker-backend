@@ -49,6 +49,7 @@ const register = asyncHandler(async(req, res) =>{
         password
     })
     if (user){
+        generateToken(res, user._id)
         res.status(201).json({
             _id: user._id,
             last_name: user.last_name,
@@ -65,7 +66,7 @@ const register = asyncHandler(async(req, res) =>{
 //@route    GET /api/user/profiles
 //@access   Private
 const updateUserProfile = asyncHandler(async(req, res)=>{
-    const user = await User.findById(req.body._id)
+    const user = await User.findById(req.user._id)
     if (!user){
         res.status(400)
         throw new Error("l'utilisateur n'existe pas.")
