@@ -1,11 +1,6 @@
 const mongoose = require('mongoose');
 
 const furnitureSchema = mongoose.Schema({
-    furniture_id: {
-        type: String,
-        required: true,
-        increment:true
-    },
     furniture_name: {
         type: String,
         required: true,
@@ -13,21 +8,13 @@ const furnitureSchema = mongoose.Schema({
     },
     furniture_quantity: {
         type: Number,
-        required: true,
         trim: true,
         default: 0
     },
     furniture_price: {
         type: Number,
-        required: true,
         trim: true,
-        default: 0
-    },
-    furniture_number_sold: {
-        type: Number,
-        required: true,
-        trim: true,
-        default: 0
+        default: 2000
     },
     furniture_description: {
         type: String,
