@@ -1,7 +1,3 @@
-//login
-//user : stocker
-//pass : OckerA2FggjzAWV
-
 const express = require('express')
 const {errorHandler} = require("./middleware/errorHandler");
 const app = express()
