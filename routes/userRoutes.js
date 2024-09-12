@@ -24,7 +24,7 @@ router.route('/logout').post(userController.logout)
 router.route('/profile').put(protect, userController.updateUserProfile)
 
 //@route    Route User (GET)
-//@desc     route pour récuperer d'un user
+//@desc     route pour récuperer un user
 //@acess    Private
 router.route('/profile/:_id').get(protect, userController.getUserProfile)
 

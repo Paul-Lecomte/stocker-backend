@@ -63,7 +63,7 @@ const register = asyncHandler(async(req, res) =>{
 })
 
 //@desc     Mettre a jour le profil d'un user
-//@route    GET /api/user/profiles
+//@route    PUT /api/user/profiles
 //@access   Private
 const updateUserProfile = asyncHandler(async(req, res)=>{
     const user = await User.findById(req.user._id)

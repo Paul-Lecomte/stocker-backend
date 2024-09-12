@@ -23,6 +23,9 @@ app.use(cookieParser())
 //Route utiliser pour les utilisateur
 app.use('/api/user', require('./routes/userRoutes'))
 
+//Route utiliser pour les furnitures
+app.use('/api/furniture', require('./routes/furnitureRoutes'))
+
 //afficher les stack d'erreur en mode développement
 app.use(errorHandler)
 
