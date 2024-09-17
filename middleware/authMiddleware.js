@@ -9,7 +9,7 @@ const protect = asyncHandler(async (req, res, next) =>{
     if (token){
         try {
             const decoded = jwt.decode(token, process.env.JWT_SECRET)
-            req.user = await User.findById(decoded.userId).select('-password')
+            req.user = await User.findById(decoded.userId).select('password')
             next()
         } catch (e){
             console.log(e)
@@ -22,6 +22,24 @@ const protect = asyncHandler(async (req, res, next) =>{
     }
 })
 
+const admin = asyncHandler(async(req, res, next) => {
+    let token
+    if (token){
+        const decoded = jwt.decode(token, process.env.JWT_SECRET)
+        let role = req.user = await User.findById(decoded.userId).select('role')
+        if (role === "admin"){
+            next()
+        } else {
+            res.status(401)
+            throw new Error("Vous n'avez pas les droits nécessaire")
+        }
+    } else {
+        res.status(401)
+        throw new Error('aller hope sa dégage ta pas de token.')
+    }
+})
+
 module.exports = {
-    protect
+    protect,
+    admin
 }

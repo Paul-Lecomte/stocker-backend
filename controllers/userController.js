@@ -16,7 +16,8 @@ const login = asyncHandler(async(req, res) =>{
             _id: user._id,
             last_name: user.last_name,
             first_name: user.first_name,
-            email: user.email
+            email: user.email,
+            role: user.role
         })
     } else {
         res.status(401)
@@ -54,7 +55,8 @@ const register = asyncHandler(async(req, res) =>{
             _id: user._id,
             last_name: user.last_name,
             first_name: user.first_name,
-            email: user.email
+            email: user.email,
+            role: user.role
         })
     } else {
         res.status(400)
@@ -75,6 +77,7 @@ const updateUserProfile = asyncHandler(async(req, res)=>{
     user.last_name = req.body.last_name || user.last_name
     user.first_name = req.body.first_name || user.first_name
     user.email = req.body.email || user.email
+    user.role = req.body.role || user.role
 
     if(req.body.password){
         user.password = req.body.password
@@ -86,7 +89,8 @@ const updateUserProfile = asyncHandler(async(req, res)=>{
         _id: updatedUser._id,
         last_name: updatedUser.last_name,
         first_name: updatedUser.first_name,
-        email: updatedUser.email
+        email: updatedUser.email,
+        role:updatedUser.role
     })
 })
 
@@ -112,7 +116,8 @@ const getUserProfile = asyncHandler(async(req, res) =>{
             _id: user._id,
             last_name: user.last_name,
             first_name: user.first_name,
-            email: user.email
+            email: user.email,
+            role:user.role
         })
     } else {
         res.status(400)

@@ -1,12 +1,13 @@
 const express = require('express')
 const userController = require('../controllers/userController')
 const {protect} = require('../middleware/authMiddleware')
+const {admin} = require('../middleware/authMiddleware')
 const router = express.Router()
 
 //@route    Route User (POST)
 //@desc     route pour créer un user
 //@acess    Public
-router.route('/register').post(userController.register)
+router.route('/register').post(admin, userController.register)
 
 //@route    Route User (POST)
 //@desc     route pour log un user
@@ -21,7 +22,7 @@ router.route('/logout').post(userController.logout)
 //@route    Route User (PUT)
 //@desc     route pour update le profile
 //@acess    Private
-router.route('/profile').put(protect, userController.updateUserProfile)
+router.route('/profile').put(admin, userController.updateUserProfile)
 
 //@route    Route User (GET)
 //@desc     route pour récuperer un user
