@@ -1,7 +1,7 @@
 const express = require('express')
 const userController = require('../controllers/userController')
 const {protect} = require('../middleware/authMiddleware')
-const {admin} = require('../middleware/authMiddleware')
+const {superadmin} = require('../middleware/authMiddleware')
 const router = express.Router()
 
 //@route    Route User (POST)
