@@ -95,14 +95,26 @@ const updateFurniture = asyncHandler(async(req, res) => {
 })
 
 
-//@desc     delete un objet
-//@route    DELETE /api/furniture/:_id
-//@access   private
+//@desc     Supprimer un objet
+//@route    DELETE /api/furniture/:id
+//@access   Private
+const deleteFurniture = asyncHandler(async (req, res) => {
+    const furniture = await Furniture.findById(req.params.id);
+
+    if (!furniture) {
+        res.status(404);
+        throw new Error('Objet non trouvé.');
+    }
+
+    await furniture.remove();
+    res.status(200).json({ message: "Objet supprimé avec succès." });
+});
 
 
 
 module.exports = {
     create,
     getFurniture,
-    updateFurniture
+    updateFurniture,
+    deleteFurniture
 }

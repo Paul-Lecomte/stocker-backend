@@ -25,7 +25,6 @@ router.route('/object').put(admin, furnitureController.updateFurniture)
 //@desc     delete un objet
 //@route    DELETE /api/furniture/supress
 //@access   private
-//enlever le com quand la route serra disponible
-//router.route('/supress').put(protect, furnitureController.deleteFurniture)
+router.route('/delete-furniture/:id').put(admin, furnitureController.deleteFurniture)
 
 module.exports = router
