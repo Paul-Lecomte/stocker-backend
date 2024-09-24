@@ -19,12 +19,12 @@ router.route('/furniture/:_id').get(protect, furnitureController.getFurniture)
 //@desc     update les infos d'un objet
 //@route    PUT /api/furniture/object
 //@access   private
-router.route('/object').put(admin, furnitureController.updateFurniture)
+router.route('/update').put(admin, furnitureController.updateFurniture)
 
 
 //@desc     delete un objet
 //@route    DELETE /api/furniture/supress
 //@access   private
-router.route('/delete-furniture/:id').put(admin, furnitureController.deleteFurniture)
+router.route('/delete/:id').put(admin, furnitureController.deleteFurniture)
 
 module.exports = router
