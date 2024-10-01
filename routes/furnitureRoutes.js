@@ -27,4 +27,14 @@ router.route('/update').put(admin, furnitureController.updateFurniture)
 //@access   private
 router.route('/delete/:id').put(admin, furnitureController.deleteFurniture)
 
+//@desc     increment object
+//@route    PUT /api/furniture/:id
+//@access   Private
+router.route('increment/:id').put(admin, furnitureController.incrementFurniture)
+
+//@desc     decrement object
+//@route    PUT /api/furniture/:id
+//@access   Private
+router.route('increment/:id').put(admin, furnitureController.decrementFurniture)
+
 module.exports = router

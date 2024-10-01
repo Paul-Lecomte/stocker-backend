@@ -14,7 +14,7 @@ const create = asyncHandler(async(req, res)   => {
     }
 
     //check if the object already exist in the DBB
-    const furnitureExists = await User.findOne({name})
+    const furnitureExists = await Furniture.findOne({name})
     if(furnitureExists){
         res.status(400)
         throw new Error('This furniture already exists')
@@ -78,7 +78,6 @@ const updateFurniture = asyncHandler(async(req, res) => {
         res.status(400)
         throw new Error('The user doesn\'t exist')
     }
-
     furniture.name = req.body.first_name || furniture.name
     furniture.quantity = req.body.quantity || furniture.quantity
     furniture.price = req.body.price || furniture.price
@@ -97,6 +96,36 @@ const updateFurniture = asyncHandler(async(req, res) => {
         location: furniture.location,
         movement: furniture.movement
     })
+})
+
+//@desc     increment object
+//@route    PUT /api/furniture/:id
+//@access   Private
+const incrementFurniture = asyncHandler(async(req, res) =>{
+    const {id} = req.body
+    const furniture = await Furniture.findById(id)
+    if (!furniture){
+        res.status(400)
+        throw new Error("This object doesn't exist.")
+    }
+    furniture.movement += 1;
+    await furniture.save()
+    res.status(200).json(`the object is now at : ${furniture.movement}`)
+})
+
+//@desc     decrement object
+//@route    PUT /api/furniture/:id
+//@access   Private
+const decrementFurniture = asyncHandler(async(req, res) =>{
+    const {id} = req.body
+    const furniture = await Furniture.findById(id)
+    if (!furniture){
+        res.status(400)
+        throw new Error("This object doesn't exist.")
+    }
+    furniture.movement -= 1;
+    await furniture.save()
+    res.status(200).json(`the object is now at : ${furniture.movement}`)
 })
 
 
@@ -121,5 +150,7 @@ module.exports = {
     create,
     getFurniture,
     updateFurniture,
-    deleteFurniture
+    deleteFurniture,
+    incrementFurniture,
+    decrementFurniture
 }
