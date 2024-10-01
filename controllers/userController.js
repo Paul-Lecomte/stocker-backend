@@ -29,8 +29,8 @@ const login = asyncHandler(async(req, res) =>{
 //@route    POST /api/user
 //@access   public
 const register = asyncHandler(async(req, res) =>{
-    const{last_name, first_name, email, password} = req.body
-    if (!email || email === "" || !password || password === ""){
+    const{last_name, first_name, email, password, role} = req.body
+    if (!email || email === "" || !password || password === "" || !role || role === ""){
         res.status(400)
         throw new Error("Merci de bien remplir les champs obligatoires.")
     }
@@ -47,7 +47,8 @@ const register = asyncHandler(async(req, res) =>{
         last_name,
         first_name,
         email,
-        password
+        password,
+        role
     })
     if (user){
         generateToken(res, user._id)

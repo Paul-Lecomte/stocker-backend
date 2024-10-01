@@ -22,37 +22,61 @@ const protect = asyncHandler(async (req, res, next) =>{
     }
 })
 
-const admin = asyncHandler(async(req, res, next) => {
-    let token
-    if (token){
-        const decoded = jwt.decode(token, process.env.JWT_SECRET)
-        let role = req.user = await User.findById(decoded.userId).select('role')
-        if (role === "admin"){
-            next()
-        } else {
-            res.status(401)
-            throw new Error("Vous n'avez pas les droits nécessaire")
+const admin = asyncHandler(async (req, res, next) => {
+    let token = req.cookies.jwt;
+    if (token) {
+        try {
+            // Use jwt.verify to validate the token
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            const user = await User.findById(decoded.userId).select('role');
+
+            // Check if user exists
+            if (!user) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+
+            // Check if user has the superadmin role
+            if (user.role === "superadmin" || user.role === "admin") {
+                req.user = user;  // Pass the user data to the next middleware
+                next();
+            } else {
+                return res.status(401).json({ message: `Access denied, your role is: ${user.role}` });
+            }
+        } catch (e) {
+            console.error(e); // Log the error
+            return res.status(401).json({ message: 'Invalid token or token error.' });
         }
     } else {
-        res.status(401)
-        throw new Error('aller hope sa dégage ta pas de token.')
+        return res.status(401).json({ message: 'No token provided, access denied.' });
     }
 })
 
-const superadmin = asyncHandler(async(req, res, next) => {
-    let token
-    if (token){
-        const decoded = jwt.decode(token, process.env.JWT_SECRET)
-        let role = req.user = await User.findById(decoded.userId).select('role')
-        if (role === "superadmin"){
-            next()
-        } else {
-            res.status(401)
-            throw new Error("Vous n'avez pas les droits nécessaire")
+const superadmin = asyncHandler(async (req, res, next) => {
+    let token = req.cookies.jwt;
+    if (token) {
+        try {
+            // Use jwt.verify to validate the token
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            const user = await User.findById(decoded.userId).select('role');
+
+            // Check if user exists
+            if (!user) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+
+            // Check if user has the superadmin role
+            if (user.role === "superadmin") {
+                req.user = user;  // Pass the user data to the next middleware
+                next();
+            } else {
+                return res.status(401).json({ message: `Access denied, your role is: ${user.role}` });
+            }
+        } catch (e) {
+            console.error(e); // Log the error
+            return res.status(401).json({ message: 'Invalid token or token error.' });
         }
     } else {
-        res.status(401)
-        throw new Error('aller hope sa dégage ta pas de token.')
+        return res.status(401).json({ message: 'No token provided, access denied.' });
     }
 })
 
