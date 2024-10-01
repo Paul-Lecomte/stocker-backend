@@ -25,6 +25,9 @@ const furnitureSchema = mongoose.Schema({
         type: String,
         required: true,
         trim: true
+    },
+    furniture_movement: {
+        type : Number
     }
 })
 

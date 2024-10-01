@@ -7,7 +7,7 @@ const Furniture = require('../models/furnitureModel');
 //@route    POST /api/furniture/create
 //@access   private
 const create = asyncHandler(async(req, res)   => {
-    const{name, quantity, price,  description, location} = req.body
+    const{name, quantity, price,  description, location, movement} = req.body
     if(!name || !quantity || !price || !description || !location){
         res.status(400)
         throw new Error('Missing required field')
@@ -20,13 +20,14 @@ const create = asyncHandler(async(req, res)   => {
         throw new Error('This furniture already exists')
     }
 
-    //we save the furniturein the DBB
+    //we save the furniture in the DBB
     const furniture = await Furniture.create({
         name,
         quantity,
         price,
         description,
-        location
+        location,
+        movement
     })
     if(furniture){
         res.status(201).json({
@@ -35,7 +36,8 @@ const create = asyncHandler(async(req, res)   => {
             quantity: furniture.quantity,
             price: furniture.price,
             description: furniture.description,
-            location: furniture.location
+            location: furniture.location,
+            movement: furniture.furniture_movement
         })
     } else {
         res.status(400)
@@ -57,7 +59,8 @@ const getFurniture = asyncHandler(async(req, res) => {
             quantity: furniture.quantity,
             price: furniture.price,
             description: furniture.description,
-            location: furniture.location
+            location: furniture.location,
+            movement: furniture.movement
         })
     } else {
         res.status(400)
@@ -81,6 +84,7 @@ const updateFurniture = asyncHandler(async(req, res) => {
     furniture.price = req.body.price || furniture.price
     furniture.description = req.body.description || furniture.description
     furniture.location = req.body.location || furniture.location
+    furniture.movement = req.body.movement || furniture.movement
 
     const updateObject = await furniture.save()
 
@@ -90,7 +94,8 @@ const updateFurniture = asyncHandler(async(req, res) => {
         quantity: furniture.quantity,
         price: furniture.price,
         description: furniture.description,
-        location: furniture.location
+        location: furniture.location,
+        movement: furniture.movement
     })
 })
 
