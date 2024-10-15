@@ -85,7 +85,7 @@ const updateFurniture = asyncHandler(async(req, res) => {
     furniture.location = req.body.location || furniture.location
     furniture.movement = req.body.movement || furniture.movement
 
-    const updateObject = await furniture.save()
+    await furniture.save()
 
     res.status(201).json({
         _id: furniture._id,
@@ -98,35 +98,39 @@ const updateFurniture = asyncHandler(async(req, res) => {
     })
 })
 
-//@desc     increment object
-//@route    PUT /api/furniture/:id
-//@access   Private
-const incrementFurniture = asyncHandler(async(req, res) =>{
-    const {id} = req.body
-    const furniture = await Furniture.findById(id)
-    if (!furniture){
-        res.status(400)
-        throw new Error("This object doesn't exist.")
-    }
-    furniture.movement += 1;
-    await furniture.save()
-    res.status(200).json(`the object is now at : ${furniture.movement}`)
-})
+// Increment furniture quantity
+const incrementFurniture = asyncHandler(async (req, res) => {
+    const { id } = req.body;
+    const furniture = await Furniture.findById(id);
 
-//@desc     decrement object
-//@route    PUT /api/furniture/:id
-//@access   Private
-const decrementFurniture = asyncHandler(async(req, res) =>{
-    const {id} = req.body
-    const furniture = await Furniture.findById(id)
-    if (!furniture){
-        res.status(400)
-        throw new Error("This object doesn't exist.")
+    if (!furniture) {
+        return res.status(404).json({ message: "Furniture not found" });
     }
-    furniture.movement -= 1;
-    await furniture.save()
-    res.status(200).json(`the object is now at : ${furniture.movement}`)
-})
+
+    furniture.quantity += 1;
+    await furniture.save();
+
+    res.status(200).json({ message: `Quantity incremented. Current quantity: ${furniture.quantity}`, furniture });
+});
+
+// Decrement furniture quantity
+const decrementFurniture = asyncHandler(async (req, res) => {
+    const { id } = req.body;
+    const furniture = await Furniture.findById(id);
+
+    if (!furniture) {
+        return res.status(404).json({ message: "Furniture not found" });
+    }
+
+    // Prevent quantity from going below 0
+    if (furniture.quantity > 0) {
+        furniture.quantity -= 1;
+        await furniture.save();
+        return res.status(200).json({ message: `Quantity decremented. Current quantity: ${furniture.quantity}`, furniture });
+    } else {
+        return res.status(400).json({ message: "Quantity cannot be less than 0" });
+    }
+});
 
 
 //@desc     Supprimer un objet
@@ -134,12 +138,10 @@ const decrementFurniture = asyncHandler(async(req, res) =>{
 //@access   Private
 const deleteFurniture = asyncHandler(async (req, res) => {
     const furniture = await Furniture.findById(req.params.id);
-
     if (!furniture) {
         res.status(404);
         throw new Error('Objet non trouvé.');
     }
-
     await furniture.remove();
     res.status(200).json({ message: "Objet supprimé avec succès." });
 });

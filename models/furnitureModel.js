@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const furnitureSchema = mongoose.Schema({
     name: {
         type: String,
-        trim: true
+        trim: true,
+        unique: true
     },
     quantity: {
         type: Number,
