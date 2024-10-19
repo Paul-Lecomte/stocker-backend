@@ -1,2 +1,0 @@
-fait npm init au début puis npm install pour toute les dépendense 
-aussi faire .gitignore est mettre node_modules/ pour ne pas le mettre sur github car sa prend trop de place
