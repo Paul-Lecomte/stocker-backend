@@ -24,11 +24,19 @@ const furnitureSchema = mongoose.Schema({
         trim: true
     },
     movement: {
-        type : Number,
-        default : function (){
-            return this.quantity;
-        }
+        type: Number,
+        default: 0
     }
-})
+}, {
+    timestamps: true // Adds createdAt and updatedAt fields
+});
+
+// Middleware to update movement on quantity change
+furnitureSchema.pre('save', function(next) {
+    if (this.isModified('quantity')) {
+        this.movement = this.quantity;
+    }
+    next();
+});
 
 module.exports = mongoose.model('Furniture', furnitureSchema);

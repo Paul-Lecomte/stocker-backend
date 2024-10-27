@@ -146,7 +146,49 @@ const deleteFurniture = asyncHandler(async (req, res) => {
     res.status(200).json({ message: "Objet supprimé avec succès." });
 });
 
+//@desc     Get furniture count
+//@route    GET /api/furniture/count
+//@access   Private
+const getFurnitureCount = asyncHandler(async (req, res) => {
+    const count = await Furniture.countDocuments();
+    res.status(200).json({ count });
+});
 
+//@desc     Get today's movements
+//@route    GET /api/furniture/today-movements
+//@access   Private
+const getTodayMovements = asyncHandler(async (req, res) => {
+    const movementsToday = await Furniture.aggregate([
+        {
+            $match: {
+                updatedAt: { $gte: new Date(new Date().setHours(0, 0, 0, 0)) }
+            }
+        },
+        {
+            $group: {
+                _id: null,
+                totalMovements: { $sum: "$movement" }
+            }
+        }
+    ]);
+    res.status(200).json({ count: movementsToday[0]?.totalMovements || 0 });
+});
+
+//@desc     Get most sold furniture
+//@route    GET /api/furniture/most-sold
+//@access   Private
+const getMostSoldFurniture = asyncHandler(async (req, res) => {
+    const mostSoldFurniture = await Furniture.find().sort({ movement: -1 }).limit(5);
+    res.status(200).json(mostSoldFurniture);
+});
+
+//@desc     Get highest priced furniture
+//@route    GET /api/furniture/highest-price
+//@access   Private
+const getHighestPriceFurniture = asyncHandler(async (req, res) => {
+    const highestPriceFurniture = await Furniture.find().sort({ price: -1 }).limit(5);
+    res.status(200).json(highestPriceFurniture);
+});
 
 module.exports = {
     create,
@@ -154,5 +196,9 @@ module.exports = {
     updateFurniture,
     deleteFurniture,
     incrementFurniture,
-    decrementFurniture
+    decrementFurniture,
+    getFurnitureCount,
+    getTodayMovements,
+    getMostSoldFurniture,
+    getHighestPriceFurniture
 }
