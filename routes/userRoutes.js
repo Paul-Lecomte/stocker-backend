@@ -12,7 +12,7 @@ router.route('/register').post(superadmin, userController.register)
 //@route    Route User (POST)
 //@desc     route pour log un user
 //@acess    Public
-router.route('/auth').post(userController.login)
+router.route('/login').post(userController.login)
 
 //@route    Route User (POST)
 //@desc     route pour logout un user

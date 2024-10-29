@@ -19,6 +19,7 @@ const login = asyncHandler(async(req, res) =>{
             email: user.email,
             role: user.role
         })
+
     } else {
         res.status(401)
         throw new Error("L'adresse email ou le mot de passe sont incorrect.")

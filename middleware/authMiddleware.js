@@ -5,11 +5,11 @@ const User = require('../models/userModel')
 
 const protect = asyncHandler(async (req, res, next) =>{
     let token
-    token = req.cookies.jwt
+    token = req.cookies.jwt;
     if (token){
         try {
-            const decoded = jwt.decode(token, process.env.JWT_SECRET)
-            req.user = await User.findById(decoded.userId).select('password')
+            const decoded = jwt.verify(token, process.env.JWT_SECRET)
+            req.user = await User.findById(decoded.userId)
             next()
         } catch (e){
             console.log(e)
