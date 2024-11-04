@@ -1,43 +1,43 @@
-const express = require('express')
-const {errorHandler} = require("./middleware/errorHandler");
-const app = express()
-const mongoose = require('mongoose')
-const cors = require('cors')
-const corsOptions = require('./config/corsOptions')
-const connectDB = require('./config/dbConnection')
+const express = require('express');
+const { errorHandler } = require("./middleware/errorHandler");
+const app = express();
+const mongoose = require('mongoose');
+const cors = require('cors');
+const corsOptions = require('./config/corsOptions');
+const connectDB = require('./config/dbConnection');
 const cookieParser = require("cookie-parser");
-require('dotenv').config()
-const PORT = process.env.PORT || 5000
+require('dotenv').config();
+const PORT = process.env.PORT || 5000;
 
+// Import routes
+const stockMovementRoutes = require('./routes/stockMovementsRoutes');
 
-//connexion a la base de donné
-connectDB()
+// Connect to the database
+connectDB();
 
-//configuration du serveur
-app.use(cors(corsOptions))
-app.use(express.json())
-app.use(express.urlencoded({extended: false}))
-app.use(cookieParser())
+// Server configuration
+app.use(cors(corsOptions));
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.json());
 
-//Déclaration des routes
-//Route utiliser pour les utilisateur
-app.use('/api/user', require('./routes/userRoutes'))
+// Declare routes
+app.use('/api/user', require('./routes/userRoutes'));
+app.use('/api/furniture', require('./routes/furnitureRoutes'));
+app.use('/api/stock-movements', stockMovementRoutes);  // Route for stock movements
 
-//Route utiliser pour les furnitures
-app.use('/api/furniture', require('./routes/furnitureRoutes'))
+// Error handling
+app.use(errorHandler);
 
-//afficher les stack d'erreur en mode développement
-app.use(errorHandler)
-
-//On se connect a mongodb est on lance le serveur
+// Start the server after connecting to MongoDB
 mongoose.connection.once('open', () => {
-    console.log('Connected to mangoDB')
+    console.log('Connected to MongoDB');
     app.listen(PORT, () => {
-        console.log(`Serveur lancé sur le port ${PORT}`)
-    })
-})
+        console.log(`Server running on port ${PORT}`);
+    });
+});
 
-//si on a un prob de co
+// Handle MongoDB connection errors
 mongoose.connection.on('error', err => {
-    console.log(`Erreur de connexion MongoDB : ${err}`)
-})
+    console.log(`MongoDB connection error: ${err}`);
+});
