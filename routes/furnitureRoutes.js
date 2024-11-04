@@ -26,12 +26,12 @@ router.route('/delete/:_id').delete(admin, furnitureController.deleteFurniture);
 // @desc     Increment furniture quantity
 // @route    PUT /api/furniture/increment/:_id
 // @access   private
-router.route('/increment/:_id').put(furnitureController.incrementFurniture);
+router.route('/increment/:_id').put(protect, furnitureController.incrementFurniture);
 
 // @desc     Decrement furniture quantity
 // @route    PUT /api/furniture/decrement/:_id
 // @access   private
-router.route('/decrement/:_id').put(furnitureController.decrementFurniture);
+router.route('/decrement/:_id').put(protect, furnitureController.decrementFurniture);
 
 // @desc     Get furniture count
 // @route    GET /api/furniture/count

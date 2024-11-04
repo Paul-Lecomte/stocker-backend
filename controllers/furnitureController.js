@@ -206,18 +206,10 @@ const getFurnitureCount = asyncHandler(async (req, res) => {
 //@route    GET /api/furniture/today-movements
 //@access   Private
 const getTodayMovements = asyncHandler(async (req, res) => {
-    const movementsToday = await Furniture.aggregate([
-        {
-            $match: {
-                updatedAt: { $gte: new Date(new Date().setHours(0, 0, 0, 0)) }
-            }
-        },
-        {
-            $group: {
-                _id: null,
-                totalMovements: { $sum: "$movement" }
-            }
-        }
+    const startOfDay = new Date(new Date().setHours(0, 0, 0, 0));
+    const movementsToday = await StockMovement.aggregate([
+        { $match: { createdAt: { $gte: startOfDay } } },
+        { $group: { _id: null, totalMovements: { $sum: "$quantityChange" } } }
     ]);
     res.status(200).json({ count: movementsToday[0]?.totalMovements || 0 });
 });
