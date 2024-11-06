@@ -1,27 +1,25 @@
-//import des librairies
-const asyncHandler = require('express-async-handler')
+const asyncHandler = require('express-async-handler');
 const Furniture = require('../models/furnitureModel');
 const StockMovement = require('../models/stockMovement');
 
-
-//@desc     Creation des furnitures
-//@route    POST /api/furniture/create
-//@access   private
-const create = asyncHandler(async(req, res)   => {
-    const{name, quantity, price,  description, location, movement} = req.body
-    if(!name || !quantity || !price || !description || !location){
-        res.status(400)
-        throw new Error('Missing required field')
+// @desc     Creation des furnitures
+// @route    POST /api/furniture/create
+// @access   private
+const create = asyncHandler(async (req, res) => {
+    const { name, quantity, price, description, location, movement } = req.body;
+    if (!name || !quantity || !price || !description || !location) {
+        res.status(400);
+        throw new Error('Missing required field');
     }
 
-    //check if the object already exist in the DBB
-    const furnitureExists = await Furniture.findOne({name})
-    if(furnitureExists){
-        res.status(400)
-        throw new Error('This furniture already exists')
+    // Check if the object already exists in the DB
+    const furnitureExists = await Furniture.findOne({ name });
+    if (furnitureExists) {
+        res.status(400);
+        throw new Error('This furniture already exists');
     }
 
-    //we save the furniture in the DBB
+    // We save the furniture in the DB
     const furniture = await Furniture.create({
         name,
         quantity,
@@ -29,8 +27,9 @@ const create = asyncHandler(async(req, res)   => {
         description,
         location,
         movement
-    })
-    if(furniture){
+    });
+
+    if (furniture) {
         res.status(201).json({
             _id: furniture._id,
             name: furniture.name,
@@ -38,22 +37,21 @@ const create = asyncHandler(async(req, res)   => {
             price: furniture.price,
             description: furniture.description,
             location: furniture.location,
-            movement: furniture.furniture_movement
-        })
+            movement: furniture.movement
+        });
     } else {
-        res.status(400)
-        throw new Error('Fatal error please try again')
+        res.status(400);
+        throw new Error('Fatal error please try again');
     }
-})
+});
 
+// @desc     Get furniture info
+// @route    GET /api/furniture/:_id
+// @access   private
+const getFurniture = asyncHandler(async (req, res) => {
+    const furniture = await Furniture.findById(req.params._id);
 
-//@desc     aller checrcher les infos d'un objet
-//@route    GET /api/furniture/:_id
-//@access   private
-const getFurniture = asyncHandler(async(req, res) => {
-    const furniture = await Furniture.findById(req.params._id)
-
-    if(furniture){
+    if (furniture) {
         res.status(200).json({
             _id: furniture._id,
             name: furniture.name,
@@ -62,17 +60,16 @@ const getFurniture = asyncHandler(async(req, res) => {
             description: furniture.description,
             location: furniture.location,
             movement: furniture.movement
-        })
+        });
     } else {
-        res.status(400)
-        throw new Error('Error furniture does not exist')
+        res.status(400);
+        throw new Error('Error furniture does not exist');
     }
-})
+});
 
-
-//@desc     Update furniture info
-//@route    PUT /api/furniture/:_id
-//@access   private
+// @desc     Update furniture info
+// @route    PUT /api/furniture/:_id
+// @access   private
 const updateFurniture = asyncHandler(async (req, res) => {
     const furniture = await Furniture.findById(req.params._id);
     if (!furniture) {
@@ -104,7 +101,6 @@ const updateFurniture = asyncHandler(async (req, res) => {
 
     // Update other fields
     furniture.name = req.body.name || furniture.name;
-    furniture.quantity = req.body.quantity || furniture.quantity; // Fixed typo here
     furniture.price = req.body.price || furniture.price;
     furniture.description = req.body.description || furniture.description;
     furniture.location = req.body.location || furniture.location;
@@ -123,10 +119,22 @@ const updateFurniture = asyncHandler(async (req, res) => {
     });
 });
 
+//@desc     Supprimer un objet
+//@route    DELETE /api/furniture/:id
+//@access   Private
+const deleteFurniture = asyncHandler(async (req, res) => {
+    const furniture = await Furniture.findById(req.params.id);
+    if (!furniture) {
+        res.status(404);
+        throw new Error('Objet non trouvé.');
+    }
+    await furniture.remove();
+    res.status(200).json({ message: "Objet supprimé avec succès." });
+});
 
-
-
-// Increment furniture quantity
+// @desc     Increment furniture quantity
+// @route    PUT /api/furniture/increment/:_id
+// @access   private
 const incrementFurniture = asyncHandler(async (req, res) => {
     const { id, quantity = 1 } = req.body;  // Assuming quantity is passed in the request body
     const furniture = await Furniture.findById(id);
@@ -150,7 +158,9 @@ const incrementFurniture = asyncHandler(async (req, res) => {
     res.status(200).json({ message: `Quantity incremented. Current quantity: ${furniture.quantity}`, furniture });
 });
 
-// Decrement furniture quantity
+// @desc     Decrement furniture quantity
+// @route    PUT /api/furniture/decrement/:_id
+// @access   private
 const decrementFurniture = asyncHandler(async (req, res) => {
     const { id, quantity = 1 } = req.body;  // Assuming quantity is passed in the request body
     const furniture = await Furniture.findById(id);
@@ -179,52 +189,49 @@ const decrementFurniture = asyncHandler(async (req, res) => {
     }
 });
 
-
-
-//@desc     Supprimer un objet
-//@route    DELETE /api/furniture/:id
-//@access   Private
-const deleteFurniture = asyncHandler(async (req, res) => {
-    const furniture = await Furniture.findById(req.params.id);
-    if (!furniture) {
-        res.status(404);
-        throw new Error('Objet non trouvé.');
-    }
-    await furniture.remove();
-    res.status(200).json({ message: "Objet supprimé avec succès." });
-});
-
-//@desc     Get furniture count
-//@route    GET /api/furniture/count
-//@access   Private
+// @desc     Get furniture count
+// @route    GET /api/furniture/count
+// @access   Private
 const getFurnitureCount = asyncHandler(async (req, res) => {
-    const count = await Furniture.countDocuments();
-    res.status(200).json({ count });
+    try {
+        const furnitureCount = await Furniture.countDocuments();
+        console.log("Furniture Count:", furnitureCount);  // Log the count for debugging
+        res.status(200).json({ furnitureCount });
+    } catch (error) {
+        res.status(500).json({ message: "Error counting furniture", error: error.message });
+    }
 });
 
-//@desc     Get today's movements
-//@route    GET /api/furniture/today-movements
-//@access   Private
+
+
+// @desc     Get today's movements
+// @route    GET /api/furniture/today-movements
+// @access   Private
 const getTodayMovements = asyncHandler(async (req, res) => {
-    const startOfDay = new Date(new Date().setHours(0, 0, 0, 0));
-    const movementsToday = await StockMovement.aggregate([
-        { $match: { createdAt: { $gte: startOfDay } } },
-        { $group: { _id: null, totalMovements: { $sum: "$quantityChange" } } }
-    ]);
-    res.status(200).json({ count: movementsToday[0]?.totalMovements || 0 });
+    try {
+        const startOfDay = new Date(new Date().setHours(0, 0, 0, 0));
+        const movementsToday = await StockMovement.aggregate([
+            { $match: { createdAt: { $gte: startOfDay } } },
+            { $group: { _id: null, totalMovements: { $sum: "$quantityChange" } } }
+        ]);
+        res.status(200).json({ count: movementsToday[0]?.totalMovements || 0 });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: error.message });
+    }
 });
 
-//@desc     Get most sold furniture
-//@route    GET /api/furniture/most-sold
-//@access   Private
+// @desc     Get most sold furniture
+// @route    GET /api/furniture/most-sold
+// @access   Private
 const getMostSoldFurniture = asyncHandler(async (req, res) => {
     const mostSoldFurniture = await Furniture.find().sort({ movement: -1 }).limit(5);
     res.status(200).json(mostSoldFurniture);
 });
 
-//@desc     Get highest priced furniture
-//@route    GET /api/furniture/highest-price
-//@access   Private
+// @desc     Get highest priced furniture
+// @route    GET /api/furniture/highest-price
+// @access   Private
 const getHighestPriceFurniture = asyncHandler(async (req, res) => {
     const highestPriceFurniture = await Furniture.find().sort({ price: -1 }).limit(5);
     res.status(200).json(highestPriceFurniture);
@@ -241,4 +248,4 @@ module.exports = {
     getTodayMovements,
     getMostSoldFurniture,
     getHighestPriceFurniture
-}
+};

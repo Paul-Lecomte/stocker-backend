@@ -8,7 +8,6 @@ const {generateToken} = require("../utils/generateToken");
 //@access   public
 const login = asyncHandler(async(req, res) =>{
     const {email, password} = req.body
-
     const user = await User.findOne({email})
     if (user && await user.matchPassword(password)){
         generateToken(res, user._id)
@@ -26,9 +25,9 @@ const login = asyncHandler(async(req, res) =>{
     }
 })
 
-//@desc     créer un user dans la BDD
+//@desc     Créer un user dans la BDD
 //@route    POST /api/user
-//@access   public
+//@access   private
 const register = asyncHandler(async(req, res) =>{
     const{last_name, first_name, email, password, role} = req.body
     if (!email || email === "" || !password || password === "" || !role || role === ""){
@@ -52,7 +51,6 @@ const register = asyncHandler(async(req, res) =>{
         role
     })
     if (user){
-        generateToken(res, user._id)
         res.status(201).json({
             _id: user._id,
             last_name: user.last_name,
@@ -65,6 +63,7 @@ const register = asyncHandler(async(req, res) =>{
         throw new Error("Une erreur est survenue merci de recommencé.")
     }
 })
+
 
 //@desc     Mettre a jour le profil d'un user
 //@route    PUT /api/user/profiles
@@ -131,15 +130,36 @@ const getUserProfile = asyncHandler(async(req, res) =>{
 //@route    DELETE /api/user/:id
 //@access   Private (or Admin)
 const deleteUser = asyncHandler(async (req, res) => {
-    const user = await User.findById(req.params.id);
-
-    if (!user) {
+    const userId = req.params._id;
+    // Attempt to find and delete the user
+    const result = await User.deleteOne({ _id: userId });
+    // Check if the user was found and deleted
+    if (result.deletedCount === 0) {
         res.status(404);
         throw new Error("Utilisateur non trouvé.");
     }
-
-    await user.remove();
     res.status(200).json({ message: "Utilisateur supprimé avec succès." });
+});
+
+
+//@desc     Get total number of users
+//@route    GET /api/user/count
+//@access   Private (or Admin)
+const getUserCount = asyncHandler(async (req, res) => {
+    const userCount = await User.countDocuments();
+    res.status(200).json({ count: userCount });
+});
+
+// @desc    Get all users
+// @route   GET /api/users
+// @access  Private (with authentication)
+const getUsers = asyncHandler(async (req, res) => {
+    try {
+        const users = await User.find(); // Fetch all users from DB
+        res.json(users); // Return an array of users
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching users' });
+    }
 });
 
 module.exports = {
@@ -148,5 +168,7 @@ module.exports = {
     register,
     getUserProfile,
     updateUserProfile,
-    deleteUser
+    deleteUser,
+    getUserCount,
+    getUsers
 }

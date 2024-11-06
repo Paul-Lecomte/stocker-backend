@@ -32,7 +32,17 @@ router.route('/get-profile/:_id').get(protect, userController.getUserProfile)
 //@route    Route User (DELETE)
 //@desc     route pour delete un user
 //@acess    Private
-router.route('/delete/:_id').get(superadmin, userController.getUserProfile)
+router.route('/delete/:_id').delete(superadmin, userController.deleteUser)
+
+// @route   GET /api/user/count
+// @desc    Get user count
+// @access  Private
+router.route('/count').get(protect, userController.getUserCount);
+
+// @route   GET /api/user/
+// @desc    Get all users
+// @access  Private
+router.route('/').get(superadmin, userController.getUsers)
 
 
 module.exports = router

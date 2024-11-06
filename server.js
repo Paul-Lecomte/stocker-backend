@@ -18,8 +18,8 @@ connectDB();
 // Server configuration
 app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.json());
+app.use(cookieParser());
 
 // Declare routes
 app.use('/api/user', require('./routes/userRoutes'));
