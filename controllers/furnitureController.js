@@ -108,7 +108,7 @@ const updateFurniture = asyncHandler(async (req, res) => {
 
     await furniture.save();
 
-    res.status(201).json({
+    res.status(200).json({
         _id: furniture._id,
         name: furniture.name,
         quantity: furniture.quantity,
@@ -119,18 +119,22 @@ const updateFurniture = asyncHandler(async (req, res) => {
     });
 });
 
-//@desc     Supprimer un objet
-//@route    DELETE /api/furniture/:id
-//@access   Private
+// @desc     Delete furniture item
+// @route    DELETE /api/furniture/delete/:_id
+// @access   private
 const deleteFurniture = asyncHandler(async (req, res) => {
-    const furniture = await Furniture.findById(req.params.id);
+    const furniture = await Furniture.findById(req.params._id);
     if (!furniture) {
         res.status(404);
-        throw new Error('Objet non trouvé.');
+        throw new Error("Furniture item not found");
     }
-    await furniture.remove();
-    res.status(200).json({ message: "Objet supprimé avec succès." });
+
+    // Use findByIdAndDelete instead of remove
+    await Furniture.findByIdAndDelete(req.params._id);
+
+    res.status(200).json({ message: "Furniture item deleted successfully" });
 });
+
 
 // @desc     Increment furniture quantity
 // @route    PUT /api/furniture/increment/:_id
@@ -195,7 +199,6 @@ const decrementFurniture = asyncHandler(async (req, res) => {
 const getFurnitureCount = asyncHandler(async (req, res) => {
     try {
         const furnitureCount = await Furniture.countDocuments();
-        console.log("Furniture Count:", furnitureCount);  // Log the count for debugging
         res.status(200).json({ furnitureCount });
     } catch (error) {
         res.status(500).json({ message: "Error counting furniture", error: error.message });
@@ -237,6 +240,19 @@ const getHighestPriceFurniture = asyncHandler(async (req, res) => {
     res.status(200).json(highestPriceFurniture);
 });
 
+// @desc     Get all furniture items
+// @route    GET /api/furniture/inventory
+// @access   private
+const getAllFurniture = asyncHandler(async (req, res) => {
+    try {
+        const inventory = await Furniture.find({});
+        res.status(200).json(inventory);
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to fetch inventory', error: error.message });
+    }
+});
+
+
 module.exports = {
     create,
     getFurniture,
@@ -247,5 +263,6 @@ module.exports = {
     getFurnitureCount,
     getTodayMovements,
     getMostSoldFurniture,
-    getHighestPriceFurniture
+    getHighestPriceFurniture,
+    getAllFurniture
 };
