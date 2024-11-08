@@ -252,6 +252,33 @@ const getAllFurniture = asyncHandler(async (req, res) => {
     }
 });
 
+// @desc     Search furniture by name
+// @route    GET /api/furniture/search
+// @access   private
+const searchFurnitureByName = asyncHandler(async (req, res) => {
+    const searchQuery = req.query.name;
+    if (!searchQuery) {
+        res.status(400);
+        throw new Error("Please provide a search term.");
+    }
+    try {
+        // Find furniture items where the name contains the search query (case-insensitive)
+        const foundFurniture = await Furniture.find({
+            name: { $regex: searchQuery, $options: 'i' }, // 'i' makes it case-insensitive
+        });
+
+        if (foundFurniture.length > 0) {
+            res.status(200).json(foundFurniture);
+        } else {
+            res.status(404).json({ message: "No furniture found" });
+        }
+    } catch (error) {
+        res.status(500).json({ message: "Error while searching furniture", error: error.message });
+    }
+});
+
+
+
 
 module.exports = {
     create,
@@ -264,5 +291,6 @@ module.exports = {
     getTodayMovements,
     getMostSoldFurniture,
     getHighestPriceFurniture,
-    getAllFurniture
+    getAllFurniture,
+    searchFurnitureByName
 };
