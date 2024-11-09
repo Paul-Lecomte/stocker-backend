@@ -1,103 +1,69 @@
 
 # Stocker Backend
 
-Stocker is a backend service designed to handle the inventory management, stock control, and order processing for the Stocker application. This service is built with Node.js, Express, and MongoDB, following modern API practices with role-based access control (RBAC) and JWT authentication.
+The backend of the Stocker project provides RESTful APIs for managing furniture inventory, tracking stock movements, and handling user authentication. It is built using Node.js and Express.js, and uses MongoDB for data storage.
 
 ## Table of Contents
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Setup and Installation](#setup-and-installation)
-- [Environment Variables](#environment-variables)
-- [API Documentation](#api-documentation)
+
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [API Endpoints](#api-endpoints)
 - [Contributing](#contributing)
-- [License](#license)
 
-## Features
+## Installation
 
-- **User Authentication & Authorization**: Secure user login and registration using JWT.
-- **Role-Based Access Control (RBAC)**: Granular permission control based on user roles (e.g., admin, manager, staff).
-- **Stock Management**: Create, update, and manage stock items.
-- **Order Processing**: Handle and track orders with real-time status updates.
-- **Inventory Tracking**: Keep track of stock levels and get notified on low stock.
-- **RESTful API**: Clean and simple API following REST principles.
-- **Scalable**: Built to scale with modular design and middleware architecture.
-
-## Tech Stack
-
-- **Node.js**: Backend server.
-- **Express.js**: Web framework for Node.js.
-- **MongoDB**: NoSQL database for storing user, stock, and order data.
-- **JWT**: Token-based authentication system.
-- **Mongoose**: ODM library for MongoDB.
-
-## Setup and Installation
-
-1. Clone the repository:
-
-   \`\`\`bash
+1. Clone this repository to your local machine:
+   ```bash
    git clone https://github.com/Paul-Lecomte/stocker-backend.git
+   ```
+
+2. Navigate to the project directory:
+   ```bash
    cd stocker-backend
-   \`\`\`
+   ```
 
-2. Install dependencies:
-
-   \`\`\`bash
+3. Install dependencies:
+   ```bash
    npm install
-   \`\`\`
+   ```
 
-3. Set up the environment variables. Create a `.env` file in the root directory with the following variables:
+4. Create a `.env` file in the root directory and configure the following variables:
+    - `MONGO_URI`: MongoDB connection string
+    - `PORT`: Port number for the backend server (default: 5000)
 
-   \`\`\`bash
-   PORT=5000
-   MONGO_URI=<Your MongoDB URI>
-   JWT_SECRET=<Your JWT secret>
-   \`\`\`
+## Configuration
 
-4. Start the development server:
+To run the backend server locally:
 
-   \`\`\`bash
-   npm run dev
-   \`\`\`
+```bash
+npm run dev
+```
 
-   The server will run on `http://localhost:5000`.
+This will start the server in development mode.
 
-## Environment Variables
+## API Endpoints
 
-- **PORT**: The port the server runs on (default: 5000).
-- **MONGO_URI**: The connection string for the MongoDB database.
-- **JWT_SECRET**: A secret key used to sign JWTs.
+The backend provides the following key endpoints:
 
-## API Documentation
+### Furniture Routes
 
-The API provides endpoints for managing users, stock items, and orders. You can view the detailed API documentation via Swagger (or Postman collection):
+- **GET `/api/furniture`**: Fetch all furniture items
+- **GET `/api/furniture/:id`**: Fetch a single furniture item by ID
+- **POST `/api/furniture`**: Create a new furniture item
+- **PUT `/api/furniture/:id`**: Update a furniture item by ID
+- **DELETE `/api/furniture/:id`**: Delete a furniture item by ID
 
-- **Swagger UI**: [link to Swagger docs if applicable]
+### Stock Movement Routes
 
-Some key endpoints:
+- **GET `/api/movements`**: Fetch all stock movements
+- **GET `/api/movements/:furnitureId`**: Fetch stock movements for a specific furniture item
+- **POST `/api/movements`**: Record a new stock movement (IN/OUT)
 
-- **Auth**
-    - `POST /api/auth/register`: Register a new user.
-    - `POST /api/auth/login`: Log in an existing user.
+### User Authentication Routes
 
-- **Stock**
-    - `GET /api/stock`: Get all stock items.
-    - `POST /api/stock`: Add a new stock item.
-
-- **Orders**
-    - `GET /api/orders`: Get all orders.
-    - `POST /api/orders`: Create a new order.
+- **POST `/api/users/register`**: Register a new user
+- **POST `/api/users/login`**: Log in an existing user and return a JWT token
 
 ## Contributing
 
-We welcome contributions to improve Stocker Backend! If you'd like to contribute:
-
-1. Fork the repository.
-2. Create a new branch for your feature or bug fix.
-3. Commit your changes.
-4. Submit a pull request.
-
-Please ensure your code follows the existing style and conventions and is well tested.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+Contributions are welcome! To contribute, please fork this repository, create a new branch, and submit a pull request with your changes.
