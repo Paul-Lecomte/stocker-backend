@@ -257,27 +257,63 @@ const getAllFurniture = asyncHandler(async (req, res) => {
 // @access   private
 const searchFurnitureByName = asyncHandler(async (req, res) => {
     const searchQuery = req.query.name;
+
+    // Check if search query is provided
     if (!searchQuery) {
         res.status(400);
         throw new Error("Please provide a search term.");
     }
+
+    // Check if the search term length is at least 3 characters
+    if (searchQuery.length < 3) {
+        res.status(400);
+        throw new Error("Search term must be at least 3 characters long.");
+    }
+
     try {
         // Find furniture items where the name contains the search query (case-insensitive)
         const foundFurniture = await Furniture.find({
             name: { $regex: searchQuery, $options: 'i' }, // 'i' makes it case-insensitive
         });
 
+        // If furniture items are found, return them
         if (foundFurniture.length > 0) {
             res.status(200).json(foundFurniture);
         } else {
+            // If no furniture items are found, return a 404 with a message
             res.status(404).json({ message: "No furniture found" });
         }
     } catch (error) {
+        // Log error to console for debugging
+        console.error("Error while searching furniture:", error);
+
+        // Send a 500 response if there is an error during the search
         res.status(500).json({ message: "Error while searching furniture", error: error.message });
     }
 });
 
+// @desc     Get all furniture items with their movements
+// @route    GET /api/stock-movements/all
+// @access   Private
+const getAllFurnitureWithMovements = async (req, res, next) => {
+    try {
+        // Fetch all furniture items
+        const furnitureItems = await Furniture.find();
 
+        // Map over each furniture item to fetch their movements
+        const furnitureWithMovements = await Promise.all(
+            furnitureItems.map(async (furniture) => {
+                const movements = await StockMovement.find({ furnitureId: furniture._id }).sort({ createdAt: 1 });
+                return { ...furniture.toObject(), movements };
+            })
+        );
+
+        res.json(furnitureWithMovements);
+    } catch (error) {
+        console.error("Error fetching furniture and movements:", error);
+        next(error);
+    }
+};
 
 
 module.exports = {
@@ -292,5 +328,6 @@ module.exports = {
     getMostSoldFurniture,
     getHighestPriceFurniture,
     getAllFurniture,
-    searchFurnitureByName
+    searchFurnitureByName,
+    getAllFurnitureWithMovements,
 };

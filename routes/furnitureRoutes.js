@@ -3,6 +3,11 @@ const furnitureController = require('../controllers/furnitureController');
 const { protect, admin } = require('../middleware/authMiddleware');
 const router = express.Router();
 
+// @desc     Search furniture by name
+// @route    GET /api/furniture/search
+// @access   private
+router.route('/search').get(protect, furnitureController.searchFurnitureByName);
+
 // @desc     Increment quantity
 // @route    PUT /api/furniture/increment
 // @access   private
@@ -57,10 +62,5 @@ router.route('/update/:_id').put(admin, furnitureController.updateFurniture);
 // @route    DELETE /api/furniture/:_id
 // @access   private
 router.route('/delete/:_id').delete(admin, furnitureController.deleteFurniture);
-
-// @desc     Search furniture by name
-// @route    GET /api/furniture/search
-// @access   private
-router.route('/search').get(protect, furnitureController.searchFurnitureByName);
 
 module.exports = router;
