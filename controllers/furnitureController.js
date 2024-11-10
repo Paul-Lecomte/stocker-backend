@@ -264,12 +264,6 @@ const searchFurnitureByName = asyncHandler(async (req, res) => {
         throw new Error("Please provide a search term.");
     }
 
-    // Check if the search term length is at least 3 characters
-    if (searchQuery.length < 3) {
-        res.status(400);
-        throw new Error("Search term must be at least 3 characters long.");
-    }
-
     try {
         // Find furniture items where the name contains the search query (case-insensitive)
         const foundFurniture = await Furniture.find({
@@ -291,6 +285,7 @@ const searchFurnitureByName = asyncHandler(async (req, res) => {
         res.status(500).json({ message: "Error while searching furniture", error: error.message });
     }
 });
+
 
 // @desc     Get all furniture items with their movements
 // @route    GET /api/stock-movements/all
