@@ -11,6 +11,7 @@ const PORT = process.env.PORT || 5000;
 
 // Import routes
 const stockMovementRoutes = require('./routes/stockMovementsRoutes');
+const aisleRoutes = require('./routes/aisleRoutes'); // Import the aisle routes
 
 // Connect to the database
 connectDB();
@@ -25,6 +26,7 @@ app.use(cookieParser());
 app.use('/api/user', require('./routes/userRoutes'));
 app.use('/api/furniture', require('./routes/furnitureRoutes'));
 app.use('/api/stock-movements', stockMovementRoutes);  // Route for stock movements
+app.use('/api/aisles', aisleRoutes); // Route for aisles
 
 // Error handling
 app.use(errorHandler);
