@@ -1,7 +1,12 @@
 const express = require('express');
+const multer = require('multer');
 const furnitureController = require('../controllers/furnitureController');
 const { protect, admin } = require('../middleware/authMiddleware');
+
 const router = express.Router();
+
+// Configure multer for file uploads
+const upload = multer({ dest: 'uploads/' }); // Set up your desired destination and options here
 
 // @desc     Search furniture by name
 // @route    GET /api/furniture/search
@@ -46,7 +51,7 @@ router.route('/inventory').get(protect, furnitureController.getAllFurniture);
 // @desc     Create furniture
 // @route    POST /api/furniture/create
 // @access   private
-router.route('/create').post(admin, furnitureController.create);
+router.route('/create').post(admin, upload.single('picture'), furnitureController.create);
 
 // @desc     Get furniture info
 // @route    GET /api/furniture/:_id
@@ -56,7 +61,7 @@ router.route('/:_id').get(protect, furnitureController.getFurniture);
 // @desc     Update furniture info
 // @route    PUT /api/furniture/:_id
 // @access   private
-router.route('/update/:_id').put(admin, furnitureController.updateFurniture);
+router.route('/update/:_id').put(admin, upload.single('picture'), furnitureController.updateFurniture);
 
 // @desc     Delete furniture
 // @route    DELETE /api/furniture/:_id

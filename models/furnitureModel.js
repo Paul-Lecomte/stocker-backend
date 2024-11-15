@@ -26,9 +26,13 @@ const furnitureSchema = mongoose.Schema({
     movement: {
         type: Number,
         default: 0
+    },
+    picture: {
+        type: String,
+        default: null
     }
 }, {
-    timestamps: true // Adds createdAt and updatedAt fields
+    timestamps: true
 });
 
 // Middleware to update movement on quantity change

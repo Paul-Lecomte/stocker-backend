@@ -7,11 +7,13 @@ const corsOptions = require('./config/corsOptions');
 const connectDB = require('./config/dbConnection');
 const cookieParser = require("cookie-parser");
 require('dotenv').config();
+const path = require('path');
+const upload = require('./middleware/uploadMiddleware'); // Import multer upload middleware
 const PORT = process.env.PORT || 5000;
 
 // Import routes
 const stockMovementRoutes = require('./routes/stockMovementsRoutes');
-const aisleRoutes = require('./routes/aisleRoutes'); // Import the aisle routes
+const aisleRoutes = require('./routes/aisleRoutes');
 
 // Connect to the database
 connectDB();
@@ -22,11 +24,24 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
 
+// Serve static files (images) from the 'uploads' directory
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 // Declare routes
 app.use('/api/user', require('./routes/userRoutes'));
 app.use('/api/furniture', require('./routes/furnitureRoutes'));
 app.use('/api/stock-movements', stockMovementRoutes);  // Route for stock movements
 app.use('/api/aisles', aisleRoutes); // Route for aisles
+
+// Image upload route
+app.post('/upload', upload.single('image'), (req, res) => {
+    if (!req.file) {
+        return res.status(400).send('No file uploaded');
+    }
+
+    // Respond with the image file path to use on the frontend
+    res.json({ picture: `uploads/${req.file.filename}` });
+});
 
 // Error handling
 app.use(errorHandler);

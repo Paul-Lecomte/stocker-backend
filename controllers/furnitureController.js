@@ -1,12 +1,16 @@
 const asyncHandler = require('express-async-handler');
 const Furniture = require('../models/furnitureModel');
 const StockMovement = require('../models/stockMovement');
+const upload = require('../middleware/uploadMiddleware');
+const fs = require('fs');
 
-// @desc     Creation des furnitures
+// @desc     Create furniture with picture upload
 // @route    POST /api/furniture/create
 // @access   private
 const create = asyncHandler(async (req, res) => {
     const { name, quantity, price, description, location, movement } = req.body;
+    const picture = req.file ? req.file.path : null;
+
     if (!name || !quantity || !price || !description || !location) {
         res.status(400);
         throw new Error('Missing required field');
@@ -19,30 +23,17 @@ const create = asyncHandler(async (req, res) => {
         throw new Error('This furniture already exists');
     }
 
-    // We save the furniture in the DB
     const furniture = await Furniture.create({
         name,
         quantity,
         price,
         description,
         location,
-        movement
+        movement,
+        picture
     });
 
-    if (furniture) {
-        res.status(201).json({
-            _id: furniture._id,
-            name: furniture.name,
-            quantity: furniture.quantity,
-            price: furniture.price,
-            description: furniture.description,
-            location: furniture.location,
-            movement: furniture.movement
-        });
-    } else {
-        res.status(400);
-        throw new Error('Fatal error please try again');
-    }
+    res.status(201).json(furniture);
 });
 
 // @desc     Get furniture info
@@ -59,7 +50,8 @@ const getFurniture = asyncHandler(async (req, res) => {
             price: furniture.price,
             description: furniture.description,
             location: furniture.location,
-            movement: furniture.movement
+            movement: furniture.movement,
+            picture: furniture.picture // Make sure to return picture URL or path
         });
     } else {
         res.status(400);
@@ -67,7 +59,7 @@ const getFurniture = asyncHandler(async (req, res) => {
     }
 });
 
-// @desc     Update furniture info
+// @desc     Update furniture info and picture
 // @route    PUT /api/furniture/:_id
 // @access   private
 const updateFurniture = asyncHandler(async (req, res) => {
@@ -80,46 +72,36 @@ const updateFurniture = asyncHandler(async (req, res) => {
     const previousQuantity = furniture.quantity;
     const newQuantity = req.body.quantity ?? previousQuantity;
 
-    // Check for quantity change to log it
     if (newQuantity !== previousQuantity) {
         const quantityChange = newQuantity - previousQuantity;
         const movementType = quantityChange > 0 ? "IN" : "OUT";
 
-        // Log the stock movement
         const stockMovement = new StockMovement({
             furnitureId: furniture._id,
-            quantityChange,            // Added quantityChange field here
-            quantity: newQuantity,      // Updated quantity to match schema
+            quantityChange,
+            quantity: newQuantity,
             movementType,
         });
         await stockMovement.save();
-        console.log("Stock movement saved:", stockMovement);
-
-        // Update quantity in the furniture model
         furniture.quantity = newQuantity;
     }
 
-    // Update other fields
     furniture.name = req.body.name || furniture.name;
     furniture.price = req.body.price || furniture.price;
     furniture.description = req.body.description || furniture.description;
     furniture.location = req.body.location || furniture.location;
     furniture.movement = req.body.movement || furniture.movement;
 
+    if (req.file) {
+        furniture.picture = req.file.path; // Update picture
+    }
+
     await furniture.save();
 
-    res.status(200).json({
-        _id: furniture._id,
-        name: furniture.name,
-        quantity: furniture.quantity,
-        price: furniture.price,
-        description: furniture.description,
-        location: furniture.location,
-        movement: furniture.movement,
-    });
+    res.status(200).json(furniture);
 });
 
-// @desc     Delete furniture item
+// @desc     Delete furniture item and its picture
 // @route    DELETE /api/furniture/delete/:_id
 // @access   private
 const deleteFurniture = asyncHandler(async (req, res) => {
@@ -129,12 +111,17 @@ const deleteFurniture = asyncHandler(async (req, res) => {
         throw new Error("Furniture item not found");
     }
 
-    // Use findByIdAndDelete instead of remove
+    // Delete picture file if it exists
+    if (furniture.picture) {
+        fs.unlink(furniture.picture, (err) => {
+            if (err) console.error("Error deleting image:", err);
+        });
+    }
+
     await Furniture.findByIdAndDelete(req.params._id);
 
-    res.status(200).json({ message: "Furniture item deleted successfully" });
+    res.status(200).json({ message: "Furniture item and picture deleted successfully" });
 });
-
 
 // @desc     Increment furniture quantity
 // @route    PUT /api/furniture/increment/:_id
@@ -204,8 +191,6 @@ const getFurnitureCount = asyncHandler(async (req, res) => {
         res.status(500).json({ message: "Error counting furniture", error: error.message });
     }
 });
-
-
 
 // @desc     Get today's movements
 // @route    GET /api/furniture/today-movements
@@ -278,38 +263,13 @@ const searchFurnitureByName = asyncHandler(async (req, res) => {
             res.status(404).json({ message: "No furniture found" });
         }
     } catch (error) {
-        // Log error to console for debugging
-        console.error("Error while searching furniture:", error);
+        // Log any errors to the console
+        console.error(error);
 
-        // Send a 500 response if there is an error during the search
-        res.status(500).json({ message: "Error while searching furniture", error: error.message });
+        // Return a 500 status if something goes wrong
+        res.status(500).json({ message: "An error occurred while searching for furniture.", error: error.message });
     }
 });
-
-
-// @desc     Get all furniture items with their movements
-// @route    GET /api/stock-movements/all
-// @access   Private
-const getAllFurnitureWithMovements = async (req, res, next) => {
-    try {
-        // Fetch all furniture items
-        const furnitureItems = await Furniture.find();
-
-        // Map over each furniture item to fetch their movements
-        const furnitureWithMovements = await Promise.all(
-            furnitureItems.map(async (furniture) => {
-                const movements = await StockMovement.find({ furnitureId: furniture._id }).sort({ createdAt: 1 });
-                return { ...furniture.toObject(), movements };
-            })
-        );
-
-        res.json(furnitureWithMovements);
-    } catch (error) {
-        console.error("Error fetching furniture and movements:", error);
-        next(error);
-    }
-};
-
 
 module.exports = {
     create,
@@ -323,6 +283,5 @@ module.exports = {
     getMostSoldFurniture,
     getHighestPriceFurniture,
     getAllFurniture,
-    searchFurnitureByName,
-    getAllFurnitureWithMovements,
+    searchFurnitureByName
 };
