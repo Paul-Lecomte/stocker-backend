@@ -1,10 +1,10 @@
 const allowedOrigins = require('./allowedOrigins')
 const {all} = require("express/lib/application");
 
-//fonction pour les options cors qui autorise ou non les sites d'accèder à notre API
+//function for the cors API
 const corsOptions = {
     origin: (origin, callback) => {
-        if (allowedOrigins.indexOf(origin) !== -1 || !origin){ //pas d'origin = applicaiotn windows
+        if (allowedOrigins.indexOf(origin) !== -1 || !origin){
             callback(null, true)
         } else {
             callback(new Error('Non autorisé par CORS'))

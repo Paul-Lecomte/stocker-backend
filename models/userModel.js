@@ -1,12 +1,11 @@
-//on importe les librairies
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 
-//on définie le schéma de donné pour les user
+//we define the user model
 const userSchema = mongoose.Schema({
     last_name : {
         type: String,
-        trim: true // on supprime les espaces est les caractères inutiles
+        trim: true
     },
     first_name : {
         type: String,
@@ -14,7 +13,7 @@ const userSchema = mongoose.Schema({
     },
     email : {
         type : String,
-        unique : true, //ne peut exister qu'une seule fois dans la bdd
+        unique : true,
         required : true
     },
     password : {
@@ -27,14 +26,13 @@ const userSchema = mongoose.Schema({
     }
 }, {timestamps:true})
 
-//compare le mot de passe entrer par le user avec celui de la bdd
+//compare the password with the one in the DB
 userSchema.methods.matchPassword = async function(enteredPassword){
     return await bcrypt.compare(enteredPassword, this.password)
 }
 
-//on va encrypter le mot de passe ici
+//encrypt the password
 userSchema.pre('save', async function(next){
-    //si le mot de passe na pas été changé on va passer le hash du mot de passe
     if (!this.isModified('password')){
         next()
     }

@@ -1,4 +1,3 @@
-// Import des librairies
 const jwt = require('jsonwebtoken');
 const asyncHandler = require('express-async-handler');
 const User = require('../models/userModel');
@@ -14,11 +13,11 @@ const protect = asyncHandler(async (req, res, next) => {
         } catch (e) {
             console.log(e);
             res.status(401);
-            return res.redirect('/login'); // Redirect if token is invalid
+            return res.redirect('/login');
         }
     } else {
         res.status(401);
-        return res.redirect('/login'); // Redirect if no token is present
+        return res.redirect('/login');
     }
 });
 
@@ -39,16 +38,16 @@ const admin = asyncHandler(async (req, res, next) => {
                 next();
             } else {
                 res.status(401);
-                return res.redirect('/login'); // Redirect for unauthorized roles
+                return res.redirect('/login');
             }
         } catch (e) {
             console.error(e);
             res.status(401);
-            return res.redirect('/login'); // Redirect for token errors
+            return res.redirect('/login');
         }
     } else {
         res.status(401);
-        return res.redirect('/login'); // Redirect if no token is present
+        return res.redirect('/login');
     }
 });
 
@@ -69,16 +68,16 @@ const superadmin = asyncHandler(async (req, res, next) => {
                 next();
             } else {
                 res.status(401);
-                return res.redirect('/login'); // Redirect for unauthorized roles
+                return res.redirect('/login');
             }
         } catch (e) {
             console.error(e);
             res.status(401);
-            return res.redirect('/login'); // Redirect for token errors
+            return res.redirect('/login');
         }
     } else {
         res.status(401);
-        return res.redirect('/login'); // Redirect if no token is present
+        return res.redirect('/login');
     }
 });
 

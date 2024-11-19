@@ -1,7 +1,6 @@
-//import de mongoose (librairie mongodb)
 const mongoose = require('mongoose')
 
-//on esssaie de se connecter a mongodb. on envoie une erreur si CA échoue
+//we try to connect to mangoDB
 const connectDB = async () =>{
     try{
         await mongoose.connect(process.env.DATABASE_URI)
