@@ -1,4 +1,3 @@
-//on importe les libreairies
 const jwt = require('jsonwebtoken')
 
 const generateToken= (res, userId) => {
@@ -8,9 +7,9 @@ const generateToken= (res, userId) => {
 
     res.cookie('jwt', token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV !== 'development', //utilisé un cookie https en mode prod
-        sameSite: 'strict', //prévenir les attaques CSRF
-        maxAge: 30 * 24 * 60 * 60 * 1000, //cela fais 30 jours
+        secure: process.env.NODE_ENV !== 'development', //use a https cookie in prod
+        sameSite: 'strict', //prevent CSRF attacks
+        maxAge: 30 * 24 * 60 * 60 * 1000, //30 days
     })
 }
 
