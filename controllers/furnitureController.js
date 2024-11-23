@@ -127,57 +127,73 @@ const deleteFurniture = asyncHandler(async (req, res) => {
 // @route    PUT /api/furniture/increment/:_id
 // @access   private
 const incrementFurniture = asyncHandler(async (req, res) => {
-    const { id, quantity = 1 } = req.body;  // Assuming quantity is passed in the request body
+    const { id, quantity = 1 } = req.body; // Assuming quantity is passed in the request body
     const furniture = await Furniture.findById(id);
 
     if (!furniture) {
         return res.status(404).json({ message: "Furniture not found" });
     }
 
-    // Increment stock level
-    furniture.quantity += quantity;
-    await furniture.save();
+    const previousQuantity = furniture.quantity;
+    const newQuantity = previousQuantity + quantity;
 
-    // Log the stock movement
+    // Save stock movement
     const stockMovement = new StockMovement({
-        furnitureId: id,
+        furnitureId: furniture._id,
         quantityChange: quantity,
+        quantity: newQuantity,
         movementType: 'IN',
     });
     await stockMovement.save();
 
-    res.status(200).json({ message: `Quantity incremented. Current quantity: ${furniture.quantity}`, furniture });
+    // Update furniture quantity
+    furniture.quantity = newQuantity;
+    await furniture.save();
+
+    res.status(200).json({
+        message: `Quantity incremented. Current quantity: ${furniture.quantity}`,
+        furniture,
+    });
 });
 
 // @desc     Decrement furniture quantity
 // @route    PUT /api/furniture/decrement/:_id
 // @access   private
 const decrementFurniture = asyncHandler(async (req, res) => {
-    const { id, quantity = 1 } = req.body;  // Assuming quantity is passed in the request body
+    const { id, quantity = 1 } = req.body; // Assuming quantity is passed in the request body
     const furniture = await Furniture.findById(id);
 
     if (!furniture) {
         return res.status(404).json({ message: "Furniture not found" });
     }
 
-    // Prevent quantity from going below 0
-    if (furniture.quantity >= quantity) {
-        // Decrement stock level
-        furniture.quantity -= quantity;
-        await furniture.save();
+    const previousQuantity = furniture.quantity;
 
-        // Log the stock movement
-        const stockMovement = new StockMovement({
-            furnitureId: id,
-            quantityChange: -quantity,
-            movementType: 'OUT',
-        });
-        await stockMovement.save();
-
-        res.status(200).json({ message: `Quantity decremented. Current quantity: ${furniture.quantity}`, furniture });
-    } else {
-        return res.status(400).json({ message: "Quantity cannot be less than 0" });
+    if (previousQuantity < quantity) {
+        return res
+            .status(400)
+            .json({ message: "Insufficient stock. Quantity cannot be less than 0." });
     }
+
+    const newQuantity = previousQuantity - quantity;
+
+    // Save stock movement
+    const stockMovement = new StockMovement({
+        furnitureId: furniture._id,
+        quantityChange: -quantity,
+        quantity: newQuantity,
+        movementType: 'OUT',
+    });
+    await stockMovement.save();
+
+    // Update furniture quantity
+    furniture.quantity = newQuantity;
+    await furniture.save();
+
+    res.status(200).json({
+        message: `Quantity decremented. Current quantity: ${furniture.quantity}`,
+        furniture,
+    });
 });
 
 // @desc     Get furniture count

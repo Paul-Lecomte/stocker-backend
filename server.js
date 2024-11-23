@@ -8,7 +8,7 @@ const connectDB = require('./config/dbConnection');
 const cookieParser = require("cookie-parser");
 require('dotenv').config();
 const path = require('path');
-const upload = require('./middleware/uploadMiddleware'); // Import multer upload middleware
+const upload = require('./middleware/uploadMiddleware');
 const PORT = process.env.PORT || 5000;
 
 // Import routes
@@ -30,8 +30,8 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // Declare routes
 app.use('/api/user', require('./routes/userRoutes'));
 app.use('/api/furniture', require('./routes/furnitureRoutes'));
-app.use('/api/stock-movements', stockMovementRoutes);  // Route for stock movements
-app.use('/api/aisles', aisleRoutes); // Route for aisles
+app.use('/api/stock-movements', stockMovementRoutes);
+app.use('/api/aisles', aisleRoutes);
 
 // Image upload route
 app.post('/upload', upload.single('image'), (req, res) => {

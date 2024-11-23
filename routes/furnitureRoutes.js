@@ -16,12 +16,12 @@ router.route('/search').get(protect, furnitureController.searchFurnitureByName);
 // @desc     Increment quantity
 // @route    PUT /api/furniture/increment
 // @access   private
-router.route('/increment').put(admin, furnitureController.incrementFurniture);
+router.route('/increment/:_id').put(protect, furnitureController.incrementFurniture);
 
 // @desc     Decrement quantity
 // @route    PUT /api/furniture/decrement
 // @access   private
-router.route('/decrement').put(admin, furnitureController.decrementFurniture);
+router.route('/decrement/:_id').put(protect, furnitureController.decrementFurniture);
 
 // @desc     Get total count of furnitures
 // @route    GET /api/furniture/count
