@@ -1,69 +1,94 @@
-
+![Alt text](assets/stocker_logo.svg) ![Alt text](assets/stocker_name.svg)
 # Stocker Backend
 
-The backend of the Stocker project provides RESTful APIs for managing furniture inventory, tracking stock movements, and handling user authentication. It is built using Node.js and Express.js, and uses MongoDB for data storage.
+The backend service for the **Stocker** project, designed to manage inventory and stock movements efficiently.
 
-## Table of Contents
+## Features
 
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [API Endpoints](#api-endpoints)
-- [Contributing](#contributing)
+- User authentication and management using JWT.
+- Furniture inventory CRUD operations.
+- Logging and tracking stock movements (e.g., IN, OUT).
+- Aisle management for organizing furniture items.
+- Analytics endpoints for actionable insights:
+   - Most sold furniture.
+   - Highest-priced furniture.
+
+## Technologies
+
+- **Node.js**: Runtime environment.
+- **Express.js**: Web framework.
+- **MongoDB**: NoSQL database.
+- **Mongoose**: ODM for MongoDB.
+- **JWT**: Authentication mechanism.
 
 ## Installation
 
-1. Clone this repository to your local machine:
+1. Clone the repository:
    ```bash
    git clone https://github.com/Paul-Lecomte/stocker-backend.git
-   ```
-
-2. Navigate to the project directory:
-   ```bash
    cd stocker-backend
    ```
 
-3. Install dependencies:
+2. Install dependencies:
    ```bash
    npm install
    ```
 
-4. Create a `.env` file in the root directory and configure the following variables:
-    - `MONGO_URI`: MongoDB connection string
-    - `PORT`: Port number for the backend server (default: 5000)
+3. Create a `.env` file in the root directory and configure the following variables:
+   ```env
+   MONGO_URI=<your-mongo-db-uri>
+   JWT_SECRET=<your-jwt-secret>
+   PORT=<your-preferred-port>
+   ```
 
-## Configuration
-
-To run the backend server locally:
-
-```bash
-npm run dev
-```
-
-This will start the server in development mode.
+4. Start the development server:
+   ```bash
+   npm start
+   ```
 
 ## API Endpoints
 
-The backend provides the following key endpoints:
+### Users
+- `POST /users/login` - Authenticate a user and retrieve a JWT token.
+- `GET /users` - Fetch all users (admin-only).
 
-### Furniture Routes
+### Furniture
+- `GET /furniture` - Retrieve all furniture items.
+- `POST /furniture` - Create a new furniture entry.
+- `PUT /furniture/:id` - Update details of an existing furniture item.
+- `DELETE /furniture/:id` - Remove a furniture entry.
 
-- **GET `/api/furniture`**: Fetch all furniture items
-- **GET `/api/furniture/:id`**: Fetch a single furniture item by ID
-- **POST `/api/furniture`**: Create a new furniture item
-- **PUT `/api/furniture/:id`**: Update a furniture item by ID
-- **DELETE `/api/furniture/:id`**: Delete a furniture item by ID
+### Stock Movements
+- `GET /movements/:id` - Retrieve stock movements by furniture ID.
+- `POST /movements` - Log a new stock movement.
 
-### Stock Movement Routes
+### Aisles
+- `GET /aisles` - List all aisles.
+- `POST /aisles` - Create a new aisle.
 
-- **GET `/api/movements`**: Fetch all stock movements
-- **GET `/api/movements/:furnitureId`**: Fetch stock movements for a specific furniture item
-- **POST `/api/movements`**: Record a new stock movement (IN/OUT)
-
-### User Authentication Routes
-
-- **POST `/api/users/register`**: Register a new user
-- **POST `/api/users/login`**: Log in an existing user and return a JWT token
+### Analytics
+- `GET /analytics/most-sold` - Retrieve the most-sold furniture items.
+- `GET /analytics/highest-priced` - Retrieve the highest-priced furniture.
 
 ## Contributing
 
-Contributions are welcome! To contribute, please fork this repository, create a new branch, and submit a pull request with your changes.
+1. Fork the repository.
+2. Create a new branch:
+   ```bash
+   git checkout -b feature-name
+   ```
+3. Commit your changes:
+   ```bash
+   git commit -m "Add feature name"
+   ```
+4. Push to the branch:
+   ```bash
+   git push origin feature-name
+   ```
+5. Submit a pull request.
+
+## License
+
+This project is licensed under the MIT License.
+
+---
