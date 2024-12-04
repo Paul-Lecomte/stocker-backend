@@ -51,7 +51,7 @@ const getFurniture = asyncHandler(async (req, res) => {
             description: furniture.description,
             location: furniture.location,
             movement: furniture.movement,
-            picture: furniture.picture // Make sure to return picture URL or path
+            picture: furniture.picture
         });
     } else {
         res.status(400);
@@ -72,6 +72,7 @@ const updateFurniture = asyncHandler(async (req, res) => {
     const previousQuantity = furniture.quantity;
     const newQuantity = req.body.quantity ?? previousQuantity;
 
+    // Only record stock movement if the quantity changes
     if (newQuantity !== previousQuantity) {
         const quantityChange = newQuantity - previousQuantity;
         const movementType = quantityChange > 0 ? "IN" : "OUT";
@@ -81,22 +82,31 @@ const updateFurniture = asyncHandler(async (req, res) => {
             quantityChange,
             quantity: newQuantity,
             movementType,
+            modifiedBy: req.body.modifiedBy, // Ensure the correct field is used
+            name: furniture.name // Include the name in the stock movement
         });
         await stockMovement.save();
-        furniture.quantity = newQuantity;
+        furniture.quantity = newQuantity; // Update furniture quantity
     }
 
+    // Always update other fields, even if the quantity doesn't change
     furniture.name = req.body.name || furniture.name;
     furniture.price = req.body.price || furniture.price;
     furniture.description = req.body.description || furniture.description;
     furniture.location = req.body.location || furniture.location;
     furniture.movement = req.body.movement || furniture.movement;
 
+    // Handle picture update if present
     if (req.file) {
         furniture.picture = req.file.path; // Update picture
     }
 
-    await furniture.save();
+    try {
+        await furniture.save();
+    } catch (error) {
+        res.status(500).json({ message: "Error saving furniture", error: error.message });
+        return;
+    }
 
     res.status(200).json(furniture);
 });
@@ -127,7 +137,7 @@ const deleteFurniture = asyncHandler(async (req, res) => {
 // @route    PUT /api/furniture/increment/:_id
 // @access   private
 const incrementFurniture = asyncHandler(async (req, res) => {
-    const { id, quantity = 1 } = req.body; // Assuming quantity is passed in the request body
+    const { id, quantity = 1 } = req.body;
     const furniture = await Furniture.findById(id);
 
     if (!furniture) {
@@ -143,6 +153,8 @@ const incrementFurniture = asyncHandler(async (req, res) => {
         quantityChange: quantity,
         quantity: newQuantity,
         movementType: 'IN',
+        modifiedBy: req.body.username,
+        name: furniture.name
     });
     await stockMovement.save();
 
@@ -160,7 +172,7 @@ const incrementFurniture = asyncHandler(async (req, res) => {
 // @route    PUT /api/furniture/decrement/:_id
 // @access   private
 const decrementFurniture = asyncHandler(async (req, res) => {
-    const { id, quantity = 1 } = req.body; // Assuming quantity is passed in the request body
+    const { id, quantity = 1 } = req.body;
     const furniture = await Furniture.findById(id);
 
     if (!furniture) {
@@ -183,6 +195,8 @@ const decrementFurniture = asyncHandler(async (req, res) => {
         quantityChange: -quantity,
         quantity: newQuantity,
         movementType: 'OUT',
+        modifiedBy: req.body.username,
+        name: furniture.name
     });
     await stockMovement.save();
 
@@ -254,36 +268,14 @@ const getAllFurniture = asyncHandler(async (req, res) => {
 });
 
 // @desc     Search furniture by name
-// @route    GET /api/furniture/search
+// @route    GET /api/furniture/search/:name
 // @access   private
 const searchFurnitureByName = asyncHandler(async (req, res) => {
-    const searchQuery = req.query.name;
-
-    // Check if search query is provided
-    if (!searchQuery) {
-        res.status(400);
-        throw new Error("Please provide a search term.");
-    }
-
     try {
-        // Find furniture items where the name contains the search query (case-insensitive)
-        const foundFurniture = await Furniture.find({
-            name: { $regex: searchQuery, $options: 'i' }, // 'i' makes it case-insensitive
-        });
-
-        // If furniture items are found, return them
-        if (foundFurniture.length > 0) {
-            res.status(200).json(foundFurniture);
-        } else {
-            // If no furniture items are found, return a 404 with a message
-            res.status(404).json({ message: "No furniture found" });
-        }
+        const furniture = await Furniture.find({ name: { $regex: req.params.name, $options: 'i' } });
+        res.status(200).json(furniture);
     } catch (error) {
-        // Log any errors to the console
-        console.error(error);
-
-        // Return a 500 status if something goes wrong
-        res.status(500).json({ message: "An error occurred while searching for furniture.", error: error.message });
+        res.status(500).json({ message: 'Search failed', error: error.message });
     }
 });
 
@@ -299,5 +291,5 @@ module.exports = {
     getMostSoldFurniture,
     getHighestPriceFurniture,
     getAllFurniture,
-    searchFurnitureByName
+    searchFurnitureByName,
 };

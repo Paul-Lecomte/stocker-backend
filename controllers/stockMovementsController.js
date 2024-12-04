@@ -62,7 +62,36 @@ const getMovementsByFurnitureId = asyncHandler(async (req, res) => {
     res.status(200).json(movements);
 });
 
+const getStockMovementsHistory = asyncHandler(async (req, res) => {
+    const { startDate, endDate, userId } = req.query;
+
+    const filter = {};
+
+    // Apply user filter if provided
+    if (userId) {
+        filter.modifiedBy = { $regex: userId, $options: 'i' }; // Case-insensitive match
+    }
+
+    // Apply date range filter if provided
+    if (startDate || endDate) {
+        filter.createdAt = {};
+        if (startDate) filter.createdAt.$gte = new Date(startDate);
+        if (endDate) filter.createdAt.$lte = new Date(endDate);
+    }
+
+    // Fetch stock movements with the filter
+    const movements = await StockMovement.find(filter).sort({ createdAt: -1 });
+
+    if (!movements.length) {
+        res.status(404);
+        throw new Error('No stock movements found with the given filters');
+    }
+
+    res.status(200).json(movements);
+});
+
 module.exports = {
     getAllFurnitureWithMovements,
     getMovementsByFurnitureId,
+    getStockMovementsHistory
 };
