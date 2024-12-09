@@ -272,7 +272,12 @@ const getAllFurniture = asyncHandler(async (req, res) => {
 // @access   private
 const searchFurnitureByName = asyncHandler(async (req, res) => {
     try {
-        const furniture = await Furniture.find({ name: { $regex: req.params.name, $options: 'i' } });
+        const { name } = req.query; // Extract query parameter
+        if (!name) {
+            return res.status(400).json({ message: "Search query is required" });
+        }
+
+        const furniture = await Furniture.find({ name: { $regex: name, $options: 'i' } });
         res.status(200).json(furniture);
     } catch (error) {
         res.status(500).json({ message: 'Search failed', error: error.message });

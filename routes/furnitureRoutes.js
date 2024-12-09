@@ -6,7 +6,7 @@ const { protect, admin } = require('../middleware/authMiddleware');
 const router = express.Router();
 
 // Configure multer for file uploads
-const upload = multer({ dest: 'uploads/' }); // Set up your desired destination and options here
+const upload = multer({ dest: 'uploads/' });
 
 // @desc     Search furniture by name
 // @route    GET /api/furniture/search
