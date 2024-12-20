@@ -42,9 +42,13 @@ The backend service for the **Stocker** project, designed to manage inventory an
    ```
 
 4. Start the development server:
+- `3000`: This is the port the server will run on
    ```bash
-   npm start
+   npm run dev
    ```
+5. You can find the frontend here:
+   [Stocker Frontend Repository](https://github.com/Paul-Lecomte/stocker-frontend)
+
 
 ## API Endpoints
 
