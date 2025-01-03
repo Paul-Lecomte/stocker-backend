@@ -1,3 +1,6 @@
 node_modules/
 .env
 uploads/
+package-lock-DESKTOP-08HVS36.json
+package-lock.json
+.idea

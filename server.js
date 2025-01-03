@@ -14,6 +14,7 @@ const PORT = process.env.PORT || 5000;
 // Import routes
 const stockMovementRoutes = require('./routes/stockMovementsRoutes');
 const aisleRoutes = require('./routes/aisleRoutes');
+const notificationRoutes = require('./routes/notificationRoutes');
 
 // Connect to the database
 connectDB();
@@ -32,6 +33,7 @@ app.use('/api/user', require('./routes/userRoutes'));
 app.use('/api/furniture', require('./routes/furnitureRoutes'));
 app.use('/api/stock-movements', stockMovementRoutes);
 app.use('/api/aisles', aisleRoutes);
+app.use('/api/notifications', notificationRoutes);
 
 // Image upload route
 app.post('/upload', upload.single('image'), (req, res) => {
