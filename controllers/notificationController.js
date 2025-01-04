@@ -1,4 +1,5 @@
 const asyncHandler = require('express-async-handler');
+const mongoose = require('mongoose');
 const Notification = require('../models/notificationModel');
 const Furniture = require('../models/furnitureModel');
 
@@ -6,12 +7,12 @@ const Furniture = require('../models/furnitureModel');
 // @route    POST /api/notifications
 // @access   Private
 const createNotification = asyncHandler(async (req, res) => {
-    const { userId, furnitureId, threshold, comparison } = req.body;
+    const {name, userId, furnitureId, threshold, comparison } = req.body;
 
     // Validate the required fields
     if (!userId || !furnitureId || !threshold || !comparison) {
         res.status(400);
-        throw new Error('All fields (userId, furnitureId, threshold, comparison) are required');
+        throw new Error('All fields (name, userId, furnitureId, threshold, comparison) are required');
     }
 
     // Convert threshold to a number, if it's not already
@@ -24,6 +25,7 @@ const createNotification = asyncHandler(async (req, res) => {
 
     // Create and save the new notification
     const notification = await Notification.create({
+        name,
         userId,
         furnitureId,
         threshold,
@@ -65,7 +67,8 @@ const getAllNotifications = asyncHandler(async (req, res) => {
     // Fetch all notifications with populated user and furniture data
     const notifications = await Notification.find()
         .populate('userId', 'first_name last_name email')
-        .populate('furnitureId', 'name quantity');
+        .populate('furnitureId', 'name quantity')
+        .select('name userId furnitureId threshold comparison isTriggered createdAt updatedAt');
 
     if (!notifications.length) {
         res.status(404);
@@ -81,8 +84,11 @@ const getAllNotifications = asyncHandler(async (req, res) => {
 const getUserNotifications = asyncHandler(async (req, res) => {
     const { userId } = req.params;
 
+    // Convert userId to ObjectId (use 'new' here)
+    const objectIdUserId = new mongoose.Types.ObjectId(userId);
+
     // Fetch notifications for the given user ID
-    const notifications = await Notification.find({ userId })
+    const notifications = await Notification.find({ userId: objectIdUserId })
         .populate('furnitureId', 'name quantity');
 
     if (!notifications.length) {
