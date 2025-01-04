@@ -36,7 +36,7 @@ Things done and not yet done:
         - [x] User roles and access control
         - [x] User registration, login, and profile management
     - Notifications
-        - [ ] Set up notification system for stock changes
+        - [x] Set up notification system for stock changes
     - Other
         - [ ] Optimisation
         - [ ] Error handling and logging
