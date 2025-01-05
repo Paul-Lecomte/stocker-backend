@@ -9,12 +9,16 @@ const cookieParser = require("cookie-parser");
 require('dotenv').config();
 const path = require('path');
 const upload = require('./middleware/uploadMiddleware');
-const PORT = process.env.PORT || 5000;
+const http = require('http');
+const PORT = process.env.PORT || 3000;
 
 // Import routes
 const stockMovementRoutes = require('./routes/stockMovementsRoutes');
 const aisleRoutes = require('./routes/aisleRoutes');
 const notificationRoutes = require('./routes/notificationRoutes');
+
+// Import socket initialization
+const { initializeSocket } = require('./config/socket');
 
 // Connect to the database
 connectDB();
@@ -48,10 +52,16 @@ app.post('/upload', upload.single('image'), (req, res) => {
 // Error handling
 app.use(errorHandler);
 
+// Create an HTTP server to handle WebSockets
+const server = http.createServer(app);
+
+// Set up Socket.IO with the server
+initializeSocket(server);
+
 // Start the server after connecting to MongoDB
 mongoose.connection.once('open', () => {
     console.log('Connected to MongoDB');
-    app.listen(PORT, () => {
+    server.listen(PORT, () => {
         console.log(`Server running on port ${PORT}`);
     });
 });

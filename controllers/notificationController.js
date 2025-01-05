@@ -2,20 +2,20 @@ const asyncHandler = require('express-async-handler');
 const mongoose = require('mongoose');
 const Notification = require('../models/notificationModel');
 const Furniture = require('../models/furnitureModel');
+const { io } = require('../config/socket');
 
 // @desc     Create a new notification
 // @route    POST /api/notifications
 // @access   Private
 const createNotification = asyncHandler(async (req, res) => {
-    const {name, userId, furnitureId, threshold, comparison } = req.body;
+    const { name, userId, furnitureId, threshold, comparison } = req.body;
 
-    // Validate the required fields
+    // Validate required fields
     if (!userId || !furnitureId || !threshold || !comparison) {
         res.status(400);
-        throw new Error('All fields (name, userId, furnitureId, threshold, comparison) are required');
+        throw new Error('All fields are required');
     }
 
-    // Convert threshold to a number, if it's not already
     const numericThreshold = Number(threshold);
 
     if (isNaN(numericThreshold)) {
@@ -23,7 +23,6 @@ const createNotification = asyncHandler(async (req, res) => {
         throw new Error('Threshold must be a number');
     }
 
-    // Create and save the new notification
     const notification = await Notification.create({
         name,
         userId,
@@ -37,10 +36,7 @@ const createNotification = asyncHandler(async (req, res) => {
         throw new Error('Failed to create notification');
     }
 
-    res.status(201).json({
-        message: 'Notification created successfully',
-        notification,
-    });
+    res.status(201).json({ message: 'Notification created successfully', notification });
 });
 
 // @desc     Delete a notification by ID
@@ -131,6 +127,8 @@ const updateNotificationTriggerStatus = async (furnitureId, threshold, compariso
 
     let isTriggered = false;
 
+    console.log(`Checking stock level for ${furniture.name} (quantity: ${furniture.quantity}) with threshold ${threshold} and comparison ${comparison}`);
+
     // Compare stock levels with the threshold
     if (comparison === 'LESS_THAN' && furniture.quantity < threshold) {
         isTriggered = true;
@@ -138,11 +136,22 @@ const updateNotificationTriggerStatus = async (furnitureId, threshold, compariso
         isTriggered = true;
     }
 
+    // Log if triggered
+    console.log(`Notification triggered: ${isTriggered}`);
+
     // Update notifications based on the trigger condition
     await Notification.updateMany(
         { furnitureId, isTriggered: false },  // Avoid updating already triggered notifications
         { isTriggered: isTriggered }
     );
+
+    // Emit Socket.IO event to notify all connected clients if the condition is met
+    if (isTriggered) {
+        console.log(`Emitting notification for ${furniture.name}`);
+        io.emit('notificationTriggered', { furnitureId, isTriggered, message: `Stock level for ${furniture.name} is below the threshold!` });
+    } else {
+        console.log(`No notification triggered for ${furniture.name}`);
+    }
 };
 
 module.exports = {

@@ -4,11 +4,12 @@ const StockMovement = require('../models/stockMovement');
 const Notification = require('../models/notificationModel');
 const upload = require('../middleware/uploadMiddleware');
 const fs = require('fs');
+const { io } = require('../config/socket');
 
 // Helper function to check and activate notifications
 const checkNotifications = async (furnitureId, newQuantity) => {
-    // Get all notifications for the specific furniture item
-    const notifications = await Notification.find({ furnitureId });
+    // Get all notifications for the specific furniture item, populate the furnitureId
+    const notifications = await Notification.find({ furnitureId: furnitureId }).populate('furnitureId');
 
     // Iterate through each notification and check if the threshold has been crossed
     for (let notification of notifications) {
@@ -25,7 +26,20 @@ const checkNotifications = async (furnitureId, newQuantity) => {
         if (isTriggered && !notification.isTriggered) {
             notification.isTriggered = true;
             await notification.save();
-            console.log(`Notification triggered for furniture: ${furnitureId}`);
+
+            // Emit the notification to the client via Socket.IO
+            const notificationMessage = `The stock level for ${notification.furnitureId.name} has crossed the threshold of ${notification.threshold} units.`;
+            console.log(notificationMessage);
+
+            // Emitting notification to the frontend
+            io.emit('stock-level-notification', {
+                furnitureId: furnitureId,
+                message: notificationMessage,
+                furnitureName: notification.furnitureId.name,
+                currentQuantity: newQuantity,
+                threshold: notification.threshold,
+                comparison: notification.comparison
+            });
         }
     }
 };
@@ -109,34 +123,27 @@ const updateFurniture = asyncHandler(async (req, res) => {
             quantityChange,
             quantity: newQuantity,
             movementType,
-            modifiedBy: req.body.modifiedBy, // Ensure the correct field is used
-            name: furniture.name // Include the name in the stock movement
+            modifiedBy: req.body.modifiedBy,
+            name: furniture.name
         });
         await stockMovement.save();
-        furniture.quantity = newQuantity; // Update furniture quantity
+        furniture.quantity = newQuantity;
 
         // Check if any notifications should be triggered
         await checkNotifications(furniture._id, newQuantity);
     }
 
-    // Always update other fields, even if the quantity doesn't change
     furniture.name = req.body.name || furniture.name;
     furniture.price = req.body.price || furniture.price;
     furniture.description = req.body.description || furniture.description;
     furniture.location = req.body.location || furniture.location;
     furniture.movement = req.body.movement || furniture.movement;
 
-    // Handle picture update if present
     if (req.file) {
         furniture.picture = req.file.path; // Update picture
     }
 
-    try {
-        await furniture.save();
-    } catch (error) {
-        res.status(500).json({ message: "Error saving furniture", error: error.message });
-        return;
-    }
+    await furniture.save();
 
     res.status(200).json(furniture);
 });

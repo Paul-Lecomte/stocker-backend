@@ -33,7 +33,6 @@ const getMovementsByFurnitureId = asyncHandler(async (req, res) => {
     const { furnitureId } = req.params;
     const { startDate, endDate } = req.query;
 
-    console.log(`Fetching movements for: ${furnitureId} with startDate: ${startDate}, endDate: ${endDate}`);
 
     // Validate if furnitureId is a valid ObjectId
     if (!mongoose.Types.ObjectId.isValid(furnitureId)) {
@@ -52,7 +51,6 @@ const getMovementsByFurnitureId = asyncHandler(async (req, res) => {
     // Fetch movements based on the filter
     const movements = await StockMovement.find(filter).sort({ createdAt: 1 });
 
-    console.log("Fetched movements:", movements);
 
     if (!movements.length) {
         res.status(404);
