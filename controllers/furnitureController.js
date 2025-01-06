@@ -4,43 +4,49 @@ const StockMovement = require('../models/stockMovement');
 const Notification = require('../models/notificationModel');
 const upload = require('../middleware/uploadMiddleware');
 const fs = require('fs');
-const { io } = require('../config/socket');
+const { getIo } = require('../config/socket');
 
 // Helper function to check and activate notifications
 const checkNotifications = async (furnitureId, newQuantity) => {
-    // Get all notifications for the specific furniture item, populate the furnitureId
-    const notifications = await Notification.find({ furnitureId: furnitureId }).populate('furnitureId');
+    try {
+        // Retrieve the Socket.IO instance
+        const io = getIo();
 
-    // Iterate through each notification and check if the threshold has been crossed
-    for (let notification of notifications) {
-        let isTriggered = false;
+        // Get all notifications for the specific furniture item, populate the furnitureId
+        const notifications = await Notification.find({ furnitureId: furnitureId }).populate('furnitureId');
 
-        // Check if the notification threshold is crossed based on the comparison type
-        if (notification.comparison === 'LESS_THAN' && newQuantity < notification.threshold) {
-            isTriggered = true;
-        } else if (notification.comparison === 'GREATER_THAN' && newQuantity > notification.threshold) {
-            isTriggered = true;
+        // Iterate through each notification and check if the threshold has been crossed
+        for (let notification of notifications) {
+            let isTriggered = false;
+
+            // Check if the notification threshold is crossed based on the comparison type
+            if (notification.comparison === 'LESS_THAN' && newQuantity < notification.threshold) {
+                isTriggered = true;
+            } else if (notification.comparison === 'GREATER_THAN' && newQuantity > notification.threshold) {
+                isTriggered = true;
+            }
+
+            // If the threshold is crossed and notification is not triggered yet, activate the notification
+            if (isTriggered && !notification.isTriggered) {
+                notification.isTriggered = true;
+                await notification.save();
+
+                const notificationMessage = `The stock level for ${notification.furnitureId.name} has crossed the threshold of ${notification.threshold} units.`;
+
+                // Emit the notification to the client via Socket.IO
+                io.emit('stock-level-notification', {
+                    furnitureId,
+                    message: notificationMessage,
+                    furnitureName: notification.furnitureId.name,
+                    currentQuantity: newQuantity,
+                    threshold: notification.threshold,
+                    comparison: notification.comparison
+                });
+            }
         }
-
-        // If the threshold is crossed and notification is not triggered yet, activate the notification
-        if (isTriggered && !notification.isTriggered) {
-            notification.isTriggered = true;
-            await notification.save();
-
-            // Emit the notification to the client via Socket.IO
-            const notificationMessage = `The stock level for ${notification.furnitureId.name} has crossed the threshold of ${notification.threshold} units.`;
-            console.log(notificationMessage);
-
-            // Emitting notification to the frontend
-            io.emit('stock-level-notification', {
-                furnitureId: furnitureId,
-                message: notificationMessage,
-                furnitureName: notification.furnitureId.name,
-                currentQuantity: newQuantity,
-                threshold: notification.threshold,
-                comparison: notification.comparison
-            });
-        }
+    } catch (error) {
+        // Log the error for troubleshooting
+        console.error('Error in checkNotifications:', error);
     }
 };
 
