@@ -2,7 +2,7 @@ const socketIo = require('socket.io');
 const corsOptions = require('./corsOptions');
 
 let io;
-
+//ok so basically this is where the dark magic is beeing made we see when a new user is connected and disconnected
 const initializeSocket = (server) => {
     io = socketIo(server, {
         cors: corsOptions,
