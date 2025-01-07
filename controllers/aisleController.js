@@ -1,4 +1,4 @@
-const Aisle = require('../models/aisleModel'); // adjust the path if necessary
+const Aisle = require('../models/aisleModel');
 
 // Create a new aisle
 const createAisle = async (req, res) => {

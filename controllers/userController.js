@@ -1,9 +1,8 @@
-//import des librairies
 const asyncHandler = require('express-async-handler')
 const User = require('../models/userModel')
 const {generateToken} = require("../utils/generateToken");
 
-//@desc     login utilisateur avec token
+//@desc     login user with token
 //@route    POST /api/user/auth
 //@access   public
 const login = asyncHandler(async(req, res) =>{
@@ -21,28 +20,28 @@ const login = asyncHandler(async(req, res) =>{
 
     } else {
         res.status(401)
-        throw new Error("L'adresse email ou le mot de passe sont incorrect.")
+        throw new Error("The email or password is incorrect.")
     }
 })
 
-//@desc     Créer un user dans la BDD
+//@desc     Create use in the db
 //@route    POST /api/user
 //@access   private
 const register = asyncHandler(async(req, res) =>{
     const{last_name, first_name, email, password, role} = req.body
     if (!email || email === "" || !password || password === "" || !role || role === ""){
         res.status(400)
-        throw new Error("Merci de bien remplir les champs obligatoires.")
+        throw new Error("Please fill out the fields.")
     }
 
-    //on va check si le user existe déjà dans la BDD
+    //we check if the user already exist
     const userExists = await User.findOne({email})
     if (userExists){
         res.status(400)
-        throw new Error("Cette utilisateur existe déjà.")
+        throw new Error("User already exist.")
     }
 
-    //on enregistre l'utilisateur dans la BDD
+    //we save the user in the db
     const user = await User.create({
         last_name,
         first_name,
@@ -60,19 +59,19 @@ const register = asyncHandler(async(req, res) =>{
         })
     } else {
         res.status(400)
-        throw new Error("Une erreur est survenue merci de recommencé.")
+        throw new Error("An error occured please try again.")
     }
 })
 
 
-//@desc     Mettre a jour le profil d'un user
+//@desc     update the user profile
 //@route    PUT /api/user/profiles
 //@access   Private
 const updateUserProfile = asyncHandler(async(req, res)=>{
     const user = await User.findById(req.user._id)
     if (!user){
         res.status(400)
-        throw new Error("l'utilisateur n'existe pas.")
+        throw new Error("The user already exist.")
     }
 
     user.last_name = req.body.last_name || user.last_name
@@ -95,7 +94,7 @@ const updateUserProfile = asyncHandler(async(req, res)=>{
     })
 })
 
-//@desc     Logout utilidsteur
+//@desc     Logout the user
 //@route    POST /api/user/logout
 //@access   Private
 const logout = asyncHandler(async(req, res)=>{
@@ -103,10 +102,10 @@ const logout = asyncHandler(async(req, res)=>{
         httpOnly: true,
         expires: new Date(0)
     })
-    res.status(200).json({message: 'utilisateur déconnecter avec succes.'})
+    res.status(200).json({message: 'User disconnected with success.'})
 })
 
-//@desc     Récuperer le profil d'un user avec son ID
+//@desc     Get the user profile with an id
 //@route    GET /api/user/profiles
 //@access   Private
 const getUserProfile = asyncHandler(async(req, res) =>{
@@ -122,11 +121,11 @@ const getUserProfile = asyncHandler(async(req, res) =>{
         })
     } else {
         res.status(400)
-        throw new Error("Utilisateur non trouvé.")
+        throw new Error("User not found.")
     }
 })
 
-//@desc     Supprimer un utilisateur
+//@desc     Delete a user
 //@route    DELETE /api/user/:id
 //@access   Private (or Admin)
 const deleteUser = asyncHandler(async (req, res) => {
@@ -136,9 +135,9 @@ const deleteUser = asyncHandler(async (req, res) => {
     // Check if the user was found and deleted
     if (result.deletedCount === 0) {
         res.status(404);
-        throw new Error("Utilisateur non trouvé.");
+        throw new Error("User not found.");
     }
-    res.status(200).json({ message: "Utilisateur supprimé avec succès." });
+    res.status(200).json({ message: "User has been successfully deleted." });
 });
 
 
