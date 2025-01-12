@@ -38,7 +38,6 @@ Things done and not yet done:
         - [x] Set up notification system for stock changes
     - Other
         - [ ] Optimisation
-        - [ ] Error handling and logging
 
 ## Installation
 ### Clone the repo
