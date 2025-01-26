@@ -5,6 +5,32 @@ const Notification = require('../models/notificationModel');
 const upload = require('../middleware/uploadMiddleware');
 const fs = require('fs');
 const { getIo } = require('../config/socket');
+const nodemailer = require('nodemailer');
+
+// Helper function to send an email
+const sendEmail = async (email, subject, text) => {
+    try {
+        const transporter = nodemailer.createTransport({
+            service: 'Gmail',
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS
+            },
+        });
+
+        const mailOptions = {
+            from: 'your-email@gmail.com', //
+            to: email,
+            subject,
+            text,
+        };
+
+        await transporter.sendMail(mailOptions);
+        console.log(`Email sent to ${email}`);
+    } catch (error) {
+        console.error('Error sending email:', error);
+    }
+};
 
 // Helper function to check and activate notifications
 const checkNotifications = async (furnitureId, newQuantity) => {
@@ -40,8 +66,15 @@ const checkNotifications = async (furnitureId, newQuantity) => {
                     furnitureName: notification.furnitureId.name,
                     currentQuantity: newQuantity,
                     threshold: notification.threshold,
-                    comparison: notification.comparison
+                    comparison: notification.comparison,
                 });
+
+                // Send an email if the email field is not empty
+                if (notification.email) {
+                    const emailSubject = 'Stock Level Notification';
+                    const emailBody = notificationMessage;
+                    await sendEmail(notification.email, emailSubject, emailBody);
+                }
             }
         }
     } catch (error) {

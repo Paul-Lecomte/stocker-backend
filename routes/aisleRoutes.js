@@ -1,5 +1,5 @@
 const express = require('express');
-const { createAisle, deleteAisle, getAllAisles } = require('../controllers/aisleController'); // Import the new controller function
+const { createAisle, deleteAisle, getAllAisles } = require('../controllers/aisleController');
 
 const router = express.Router();
 

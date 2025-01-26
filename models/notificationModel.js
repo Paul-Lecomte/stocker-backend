@@ -18,6 +18,9 @@ const notificationSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    email:{
+        type: String,
+    },
     comparison: {
         type: String,
         enum: ['LESS_THAN', 'GREATER_THAN'],
