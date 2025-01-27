@@ -68,6 +68,10 @@ PORT=3000
 NODE_ENV=dev
 DATABASE_URI=mongodb://localhost:27017/stocker
 JWT_SECRET=mysecret
+
+# Email Configuration
+EMAIL_USER=your-sender-email
+EMAIL_PASS=your-password
 ```
 
 ## Development usage
