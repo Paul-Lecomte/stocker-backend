@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const { errorHandler } = require("./middleware/errorHandler");
 const app = express();
@@ -6,7 +7,6 @@ const cors = require('cors');
 const corsOptions = require('./config/corsOptions');
 const connectDB = require('./config/dbConnection');
 const cookieParser = require("cookie-parser");
-require('dotenv').config();
 const path = require('path');
 const upload = require('./middleware/uploadMiddleware');
 const http = require('http');

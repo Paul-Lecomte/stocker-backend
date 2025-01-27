@@ -8,58 +8,27 @@ const { getIo } = require('../config/socket');
 const nodemailer = require('nodemailer');
 
 // Helper function to send an email
-const sendEmail = async (email, subject, text) => {
-    try {
-        const transporter = nodemailer.createTransport({
-            service: 'Gmail',
-            auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS
-            },
-        });
-
-        const mailOptions = {
-            from: 'your-email@gmail.com', //
-            to: email,
-            subject,
-            text,
-        };
-
-        await transporter.sendMail(mailOptions);
-        console.log(`Email sent to ${email}`);
-    } catch (error) {
-        console.error('Error sending email:', error);
-    }
-};
-
-// Helper function to check and activate notifications
 const checkNotifications = async (furnitureId, newQuantity) => {
     try {
-        // Retrieve the Socket.IO instance
         const io = getIo();
 
-        // Get all notifications for the specific furniture item, populate the furnitureId
-        const notifications = await Notification.find({ furnitureId: furnitureId }).populate('furnitureId');
+        const notifications = await Notification.find({ furnitureId }).populate('furnitureId');
 
-        // Iterate through each notification and check if the threshold has been crossed
         for (let notification of notifications) {
             let isTriggered = false;
 
-            // Check if the notification threshold is crossed based on the comparison type
             if (notification.comparison === 'LESS_THAN' && newQuantity < notification.threshold) {
                 isTriggered = true;
             } else if (notification.comparison === 'GREATER_THAN' && newQuantity > notification.threshold) {
                 isTriggered = true;
             }
 
-            // If the threshold is crossed and notification is not triggered yet, activate the notification
             if (isTriggered && !notification.isTriggered) {
                 notification.isTriggered = true;
                 await notification.save();
 
                 const notificationMessage = `The stock level for ${notification.furnitureId.name} has crossed the threshold of ${notification.threshold} units.`;
 
-                // Emit the notification to the client via Socket.IO
                 io.emit('stock-level-notification', {
                     furnitureId,
                     message: notificationMessage,
@@ -69,16 +38,32 @@ const checkNotifications = async (furnitureId, newQuantity) => {
                     comparison: notification.comparison,
                 });
 
-                // Send an email if the email field is not empty
                 if (notification.email) {
-                    const emailSubject = 'Stock Level Notification';
-                    const emailBody = notificationMessage;
-                    await sendEmail(notification.email, emailSubject, emailBody);
+                    try {
+                        const transporter = nodemailer.createTransport({
+                            service: 'Gmail',
+                            auth: {
+                                user: process.env.EMAIL_USER,
+                                pass: process.env.EMAIL_PASS,
+                            },
+                        });
+
+                        const mailOptions = {
+                            from: process.env.EMAIL_USER,
+                            to: notification.email,
+                            subject: 'Stock Level Notification',
+                            text: notificationMessage,
+                        };
+
+                        await transporter.sendMail(mailOptions);
+                        console.log(`Email sent to ${notification.email}`);
+                    } catch (error) {
+                        console.error('Error sending email:', error);
+                    }
                 }
             }
         }
     } catch (error) {
-        // Log the error for troubleshooting
         console.error('Error in checkNotifications:', error);
     }
 };
