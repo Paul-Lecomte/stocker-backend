@@ -8,7 +8,7 @@ const { io } = require('../config/socket');
 // @route    POST /api/notifications
 // @access   Private
 const createNotification = asyncHandler(async (req, res) => {
-    const { name, userId, furnitureId, threshold, comparison } = req.body;
+    const { name, userId, furnitureId, threshold, comparison, email } = req.body;
 
     // Validate required fields
     if (!userId || !furnitureId || !threshold || !comparison) {
@@ -29,6 +29,7 @@ const createNotification = asyncHandler(async (req, res) => {
         furnitureId,
         threshold,
         comparison,
+        email
     });
 
     if (!notification) {
