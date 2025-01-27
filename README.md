@@ -54,7 +54,7 @@ npm install
 ```
 
 ## Usage
-To use the backend, you'll need some environment variables. Create a `.env` file in the backend folder and add the following variables:
+To use the backend, you'll need some environment variables. Create a `.env` file in the backend folder and add the following variables (Important info you need to use the app password for the email to work the account password will not work):
 ```env
 PORT
 NODE_ENV
@@ -71,7 +71,7 @@ JWT_SECRET=mysecret
 
 # Email Configuration
 EMAIL_USER=your-sender-email
-EMAIL_PASS=your-password
+EMAIL_PASS=your-app-password
 ```
 
 ## Development usage
