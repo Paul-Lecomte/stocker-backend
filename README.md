@@ -84,3 +84,4 @@ npm run dev
 ### API Documentation
 The backend exposes a variety of API endpoints for interacting with furniture, stock movements, and users. Ensure that the `.env` file is set up before making requests.
 
+Also if you liked this project consider giving me a follow and a star it helps a lot thanks :3
