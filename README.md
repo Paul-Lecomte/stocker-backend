@@ -10,6 +10,7 @@ Stocker is an inventory management system that allows users to track the stock o
 
 The backend is built with Node.js and handles user authentication, data management, stock movement tracking, and more.
 
+You can find the frontend repository [here](https://github.com/Paul-Lecomte/stocker-frontend).
 ## Table of contents
 * [Stocker Backend](#stocker-backend)
     * [About the project](#about-the-project)
