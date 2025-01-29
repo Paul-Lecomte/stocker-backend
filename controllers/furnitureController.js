@@ -7,7 +7,7 @@ const fs = require('fs');
 const { getIo } = require('../config/socket');
 const nodemailer = require('nodemailer');
 
-// Helper function to send an email
+// Helper function to check notifications and send an email
 const checkNotifications = async (furnitureId, newQuantity) => {
     try {
         const io = getIo();
