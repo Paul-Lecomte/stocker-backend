@@ -18,11 +18,11 @@ const userSchema = mongoose.Schema({
     },
     password : {
         type : String,
-        req : true
+        required : true
     },
     role : {
         type : String,
-        req : true
+        required : true
     }
 }, {timestamps:true})
 
