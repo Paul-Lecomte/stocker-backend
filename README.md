@@ -50,6 +50,11 @@ cd stocker-backend
 
 ### Install dependencies
 Install the necessary backend dependencies.
+
+```bash
+NodeJs vers 20.6.1
+```
+
 ```bash
 npm install
 ```
