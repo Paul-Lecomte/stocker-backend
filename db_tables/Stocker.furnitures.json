@@ -1,0 +1,38 @@
+[{
+  "_id": {
+    "$oid": "674198bb71ae89884f63495b"
+  },
+  "name": "Table",
+  "quantity": 120,
+  "price": 250,
+  "description": "beautiful table very classy",
+  "location": "aile 2a",
+  "movement": 120,
+  "picture": "uploads\\b8eb3ae7dac0bc94cf43630fc90971e5",
+  "createdAt": {
+    "$date": "2024-11-23T08:56:27.632Z"
+  },
+  "updatedAt": {
+    "$date": "2024-12-04T08:27:01.136Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "name": "chaise",
+  "quantity": 25,
+  "price": 89,
+  "description": "chaise pour salle a manger mmmmh",
+  "location": "aile 2a",
+  "movement": 25,
+  "picture": "uploads\\eb427b6b8b4cf281c6c0d0a827ddd5f6",
+  "createdAt": {
+    "$date": "2024-11-26T06:58:48.942Z"
+  },
+  "updatedAt": {
+    "$date": "2025-01-27T11:31:48.405Z"
+  },
+  "__v": 0
+}]

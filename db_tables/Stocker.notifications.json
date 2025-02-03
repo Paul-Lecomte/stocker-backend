@@ -1,0 +1,115 @@
+[{
+  "_id": {
+    "$oid": "679766e0faa34f922c660723"
+  },
+  "name": "test",
+  "userId": {
+    "$oid": "66e008a3658bf39318a315af"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "threshold": 25,
+  "email": "lecomtepaulvd@gmail.com",
+  "comparison": "GREATER_THAN",
+  "isTriggered": true,
+  "createdAt": {
+    "$date": "2025-01-27T10:58:40.543Z"
+  },
+  "updatedAt": {
+    "$date": "2025-01-29T09:14:03.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "679768dafaa34f922c66076c"
+  },
+  "name": "test",
+  "userId": {
+    "$oid": "66e008a3658bf39318a315af"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "threshold": 20,
+  "email": "lecomtepaulvd@gmail.com",
+  "comparison": "LESS_THAN",
+  "isTriggered": true,
+  "createdAt": {
+    "$date": "2025-01-27T11:07:06.970Z"
+  },
+  "updatedAt": {
+    "$date": "2025-01-27T11:08:39.789Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67976aac54a5075df73e3e91"
+  },
+  "name": "tset",
+  "userId": {
+    "$oid": "66e008a3658bf39318a315af"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "threshold": 22,
+  "email": "lecomtepaulvd@gmail.com",
+  "comparison": "GREATER_THAN",
+  "isTriggered": true,
+  "createdAt": {
+    "$date": "2025-01-27T11:14:52.712Z"
+  },
+  "updatedAt": {
+    "$date": "2025-01-27T11:14:58.866Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67976c09f219adc53c0eebb0"
+  },
+  "name": "tset",
+  "userId": {
+    "$oid": "66e008a3658bf39318a315af"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "threshold": 20,
+  "email": "lecomtepaulvd@gmail.com",
+  "comparison": "LESS_THAN",
+  "isTriggered": true,
+  "createdAt": {
+    "$date": "2025-01-27T11:20:41.343Z"
+  },
+  "updatedAt": {
+    "$date": "2025-01-27T11:20:50.234Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67976e9df120dd450d3c3e0d"
+  },
+  "name": "tes",
+  "userId": {
+    "$oid": "66e008a3658bf39318a315af"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "threshold": 24,
+  "email": "lecomtepaulvd@gmail.com",
+  "comparison": "GREATER_THAN",
+  "isTriggered": true,
+  "createdAt": {
+    "$date": "2025-01-27T11:31:41.305Z"
+  },
+  "updatedAt": {
+    "$date": "2025-01-27T11:31:48.446Z"
+  },
+  "__v": 0
+}]

@@ -1,0 +1,51 @@
+[{
+  "_id": {
+    "$oid": "66e008a3658bf39318a315af"
+  },
+  "last_name": "lecomte",
+  "first_name": "paul",
+  "email": "email@email.com",
+  "password": "$2b$10$5EQfq5lx.Rb4m8nGgtC.Z.6ymwBm0tDOw7gtus5dp.ZM5PcuEtzfe",
+  "createdAt": {
+    "$date": "2024-09-10T08:51:47.671Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-06T14:53:11.877Z"
+  },
+  "__v": 0,
+  "role": "superadmin"
+},
+{
+  "_id": {
+    "$oid": "672b830b3c25ffb698f20c1b"
+  },
+  "last_name": "admin",
+  "first_name": "pierre",
+  "email": "test@email.com",
+  "password": "$2b$10$vk934.RtfZPYwqnuu/ZvFulKatLcx0.//mC1RdJ.n0HUe2kxbfFFG",
+  "role": "admin",
+  "createdAt": {
+    "$date": "2024-11-06T14:54:03.249Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-06T14:54:03.249Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6733182afe626e3787243194"
+  },
+  "last_name": "user",
+  "first_name": "classic",
+  "email": "classic@email.com",
+  "password": "$2b$10$eyCSgT0Oy3XYJQtap8Yi9O3bmMy7RWHvmPlvFVu2jVNMQ5XHfQCDi",
+  "role": "user",
+  "createdAt": {
+    "$date": "2024-11-12T08:56:10.797Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-12T08:56:10.797Z"
+  },
+  "__v": 0
+}]
