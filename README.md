@@ -17,6 +17,7 @@ You can find the frontend repository [here](https://github.com/Paul-Lecomte/stoc
     * [Table of contents](#table-of-contents)
     * [TODO](#todo)
     * [Installation](#installation)
+        * [install script](#-installation-script)
         * [Clone the repo](#clone-the-repo)
         * [Install dependencies](#install-dependencies)
     * [Usage](#usage)
@@ -41,6 +42,13 @@ Things done and not yet done:
         - [ ] Optimisation
 
 ## Installation
+### 🚀 Installation Script
+
+This project includes an install script for easy setup.  
+To install and run both the frontend and backend, use:
+
+```bash
+chmod +x install.sh && ./install.sh
 ### Clone the repo
 Clone the repository to your local machine.
 ```bash
