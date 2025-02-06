@@ -8,11 +8,12 @@ const { getIo } = require('../config/socket');
 const nodemailer = require('nodemailer');
 
 // Helper function to check notifications and send an email
-const checkNotifications = async (furnitureId, newQuantity) => {
+const checkNotifications = async (furnitureId, newQuantity, connectedUserId) => {
     try {
         const io = getIo();
 
-        const notifications = await Notification.find({ furnitureId }).populate('furnitureId');
+        // Fetch notifications only for the connected user
+        const notifications = await Notification.find({ furnitureId, userId: connectedUserId }).populate('furnitureId');
 
         for (let notification of notifications) {
             let isTriggered = false;
@@ -29,7 +30,7 @@ const checkNotifications = async (furnitureId, newQuantity) => {
 
                 const notificationMessage = `The stock level for ${notification.furnitureId.name} has crossed the threshold of ${notification.threshold} units.`;
 
-                io.emit('stock-level-notification', {
+                io.to(connectedUserId.toString()).emit('stock-level-notification', {
                     furnitureId,
                     message: notificationMessage,
                     furnitureName: notification.furnitureId.name,
@@ -154,7 +155,7 @@ const updateFurniture = asyncHandler(async (req, res) => {
         furniture.quantity = newQuantity;
 
         // Check if any notifications should be triggered
-        await checkNotifications(furniture._id, newQuantity);
+        await checkNotifications(furniture._id, newQuantity, req.user._id);
     }
 
     furniture.name = req.body.name || furniture.name;
@@ -224,7 +225,7 @@ const incrementFurniture = asyncHandler(async (req, res) => {
     await furniture.save();
 
     // Check if any notifications should be triggered
-    await checkNotifications(furniture._id, newQuantity);
+    await checkNotifications(furniture._id, newQuantity, req.user._id);
 
     res.status(200).json({
         message: `Quantity incremented. Current quantity: ${furniture.quantity}`,
@@ -269,7 +270,7 @@ const decrementFurniture = asyncHandler(async (req, res) => {
     await furniture.save();
 
     // Check if any notifications should be triggered
-    await checkNotifications(furniture._id, newQuantity);
+    await checkNotifications(furniture._id, newQuantity, req.user._id);
 
     res.status(200).json({
         message: `Quantity decremented. Current quantity: ${furniture.quantity}`,
