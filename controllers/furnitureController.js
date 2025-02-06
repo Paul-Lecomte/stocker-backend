@@ -30,7 +30,7 @@ const checkNotifications = async (furnitureId, newQuantity, connectedUserId) => 
 
                 const notificationMessage = `The stock level for ${notification.furnitureId.name} has crossed the threshold of ${notification.threshold} units.`;
 
-                io.to(connectedUserId.toString()).emit('stock-level-notification', {
+                io.emit('stock-level-notification', {
                     furnitureId,
                     message: notificationMessage,
                     furnitureName: notification.furnitureId.name,
