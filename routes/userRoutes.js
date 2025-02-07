@@ -44,5 +44,10 @@ router.route('/count').get(protect, userController.getUserCount);
 // @access  Private
 router.route('/').get(superadmin, userController.getUsers)
 
+// @route   GET /api/user/
+// @desc    Get all users
+// @access  Private
+router.route('/role/:_id').get( userController.getUserRole)
+
 
 module.exports = router

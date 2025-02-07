@@ -125,6 +125,22 @@ const getUserProfile = asyncHandler(async(req, res) =>{
     }
 })
 
+//@desc     Get the user role with an id
+//@route    GET /api/user/profiles
+//@access   Private
+const getUserRole = asyncHandler(async(req, res) =>{
+    const user = await User.findById(req.params._id)
+
+    if (user){
+        res.status(201).json({
+            role:user.role
+        })
+    } else {
+        res.status(400)
+        throw new Error("User not found.")
+    }
+})
+
 //@desc     Delete a user
 //@route    DELETE /api/user/:id
 //@access   Private (or Admin)
@@ -169,5 +185,6 @@ module.exports = {
     updateUserProfile,
     deleteUser,
     getUserCount,
-    getUsers
+    getUsers,
+    getUserRole
 }
