@@ -171,8 +171,8 @@ const getUserCount = asyncHandler(async (req, res) => {
 // @access  Private (with authentication)
 const getUsers = asyncHandler(async (req, res) => {
     try {
-        const users = await User.find(); // Fetch all users from DB
-        res.json(users); // Return an array of users
+        const users = await User.find().select('-password'); // Exclude the password field
+        res.json(users);
     } catch (error) {
         res.status(500).json({ message: 'Error fetching users' });
     }
