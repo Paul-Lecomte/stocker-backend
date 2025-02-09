@@ -66,32 +66,34 @@ const register = asyncHandler(async(req, res) =>{
 //@desc     update the user profile
 //@route    PUT /api/user/profiles
 //@access   Private
-const updateUserProfile = asyncHandler(async(req, res)=>{
-    const user = await User.findById(req.user._id)
-    if (!user){
-        res.status(400)
-        throw new Error("The user already exist.")
+const updateUserProfile = asyncHandler(async (req, res) => {
+    const user = await User.findById(req.user._id);
+    if (!user) {
+        res.status(400);
+        throw new Error("The user does not exist.");
     }
 
-    user.last_name = req.body.last_name || user.last_name
-    user.first_name = req.body.first_name || user.first_name
-    user.email = req.body.email || user.email
-    user.role = req.body.role || user.role
+    user.last_name = req.body.last_name || user.last_name;
+    user.first_name = req.body.first_name || user.first_name;
+    user.email = req.body.email || user.email;
+    user.role = req.body.role || user.role;
 
-    if(req.body.password){
-        user.password = req.body.password
+    // Update the password only if it's provided
+    if (req.body.password) {
+        user.password = req.body.password;
     }
 
-    const updatedUser = await user.save()
+    const updatedUser = await user.save();
 
     res.status(201).json({
         _id: updatedUser._id,
         last_name: updatedUser.last_name,
         first_name: updatedUser.first_name,
         email: updatedUser.email,
-        role:updatedUser.role
-    })
-})
+        role: updatedUser.role,
+        createdAt: updatedUser.createdAt
+    });
+});
 
 //@desc     Logout the user
 //@route    POST /api/user/logout
