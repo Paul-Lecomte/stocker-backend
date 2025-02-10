@@ -54,7 +54,8 @@ const register = asyncHandler(async(req, res) =>{
             last_name: user.last_name,
             first_name: user.first_name,
             email: user.email,
-            role: user.role
+            role: user.role,
+            createdAt: user.createdAt
         })
     } else {
         res.status(400)

@@ -20,6 +20,7 @@ You can find the frontend repository [here](https://github.com/Paul-Lecomte/stoc
         * [install script](#-installation-script)
         * [Clone the repo](#clone-the-repo)
         * [Install dependencies](#install-dependencies)
+        * [Premade users](#premade-users)
     * [Usage](#usage)
         * [Example](#example)
     * [Development usage](#development-usage)
@@ -87,6 +88,19 @@ JWT_SECRET=mysecret
 EMAIL_USER=your-sender-email
 EMAIL_PASS=your-app-password
 ```
+
+## Premade Users
+
+If you use the default users table, here are three premade accounts for testing:
+
+| Role        | Email                  | Password |
+|-------------|------------------------|-----|
+| Super admin | superadmin@stocker.com | 123 |
+| Admin       | admin@stocker.com      | 123 |
+| User        | user@stocker.com       | 123 |
+
+You can use these accounts to log in and test different user roles and permissions.
+
 
 ## Development usage
 ### Start the server

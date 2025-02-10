@@ -2,6 +2,7 @@ const express = require('express')
 const userController = require('../controllers/userController')
 const {protect} = require('../middleware/authMiddleware')
 const {superadmin} = require('../middleware/authMiddleware')
+const {admin} = require('../middleware/authMiddleware')
 const router = express.Router()
 
 //@route    Route User (POST)
@@ -42,7 +43,7 @@ router.route('/count').get(protect, userController.getUserCount);
 // @route   GET /api/user/
 // @desc    Get all users
 // @access  Private
-router.route('/').get(superadmin, userController.getUsers)
+router.route('/').get(admin, userController.getUsers)
 
 // @route   GET /api/user/
 // @desc    Get all users
