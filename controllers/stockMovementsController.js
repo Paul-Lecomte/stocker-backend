@@ -12,7 +12,7 @@ const getAllFurnitureWithMovements = asyncHandler(async (req, res) => {
 
     if (!furnitureItems.length) {
         res.status(404);
-        throw new Error("No furniture items found.");
+        throw new Error("No furniture found.");
     }
 
     // Map over each furniture item to fetch their movements
