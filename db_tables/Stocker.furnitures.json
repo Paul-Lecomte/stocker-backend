@@ -3,17 +3,17 @@
     "$oid": "674198bb71ae89884f63495b"
   },
   "name": "Table",
-  "quantity": 120,
+  "quantity": 15,
   "price": 250,
   "description": "beautiful table very classy",
   "location": "aile 2a",
-  "movement": 120,
-  "picture": "uploads\\b8eb3ae7dac0bc94cf43630fc90971e5",
+  "movement": 15,
+  "picture": "uploads\\d705cef5eef17fd88079ae2eac7270ea",
   "createdAt": {
     "$date": "2024-11-23T08:56:27.632Z"
   },
   "updatedAt": {
-    "$date": "2024-12-04T08:27:01.136Z"
+    "$date": "2025-02-12T07:12:00.412Z"
   },
   "__v": 0
 },
@@ -22,17 +22,36 @@
     "$oid": "674571a8118c923680fe1efb"
   },
   "name": "chaise",
-  "quantity": 25,
+  "quantity": 23,
   "price": 89,
   "description": "chaise pour salle a manger mmmmh",
   "location": "aile 2a",
-  "movement": 25,
-  "picture": "uploads\\eb427b6b8b4cf281c6c0d0a827ddd5f6",
+  "movement": 23,
+  "picture": "uploads\\c03ea4037b22ae8d923523dfc5f5d08e",
   "createdAt": {
     "$date": "2024-11-26T06:58:48.942Z"
   },
   "updatedAt": {
-    "$date": "2025-01-27T11:31:48.405Z"
+    "$date": "2025-02-12T07:12:09.007Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ab2190d830b286ea4f9767"
+  },
+  "name": "lit",
+  "quantity": 51,
+  "price": 500,
+  "description": "lit queen size",
+  "location": "aile SAE",
+  "movement": 51,
+  "picture": "uploads\\d24538f90c8eec1993f8d3988c70ad4c",
+  "createdAt": {
+    "$date": "2025-02-11T10:08:16.072Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-11T10:12:03.719Z"
   },
   "__v": 0
 }]

@@ -1,100 +1,5 @@
 [{
   "_id": {
-    "$oid": "675011a06854870457867fd4"
-  },
-  "furnitureId": {
-    "$oid": "674571a8118c923680fe1efb"
-  },
-  "quantityChange": 4,
-  "movementType": "IN",
-  "quantity": 22,
-  "modifiedBy": "paul lecomte",
-  "createdAt": {
-    "$date": "2024-12-04T08:24:00.449Z"
-  },
-  "updatedAt": {
-    "$date": "2024-12-04T08:24:00.449Z"
-  },
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "675011a66854870457867fd9"
-  },
-  "furnitureId": {
-    "$oid": "674571a8118c923680fe1efb"
-  },
-  "quantityChange": 0,
-  "movementType": "OUT",
-  "quantity": 22,
-  "modifiedBy": "paul lecomte",
-  "createdAt": {
-    "$date": "2024-12-04T08:24:06.975Z"
-  },
-  "updatedAt": {
-    "$date": "2024-12-04T08:24:06.975Z"
-  },
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "675011ac6854870457867fde"
-  },
-  "furnitureId": {
-    "$oid": "674571a8118c923680fe1efb"
-  },
-  "quantityChange": 0,
-  "movementType": "OUT",
-  "quantity": 22,
-  "modifiedBy": "paul lecomte",
-  "createdAt": {
-    "$date": "2024-12-04T08:24:12.527Z"
-  },
-  "updatedAt": {
-    "$date": "2024-12-04T08:24:12.527Z"
-  },
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "675011b76854870457867fe3"
-  },
-  "furnitureId": {
-    "$oid": "674571a8118c923680fe1efb"
-  },
-  "quantityChange": 0,
-  "movementType": "OUT",
-  "quantity": 22,
-  "modifiedBy": "paul lecomte",
-  "createdAt": {
-    "$date": "2024-12-04T08:24:23.942Z"
-  },
-  "updatedAt": {
-    "$date": "2024-12-04T08:24:23.942Z"
-  },
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "67501255efca9420b3f0a5f4"
-  },
-  "furnitureId": {
-    "$oid": "674198bb71ae89884f63495b"
-  },
-  "quantityChange": -7,
-  "movementType": "OUT",
-  "quantity": 120,
-  "modifiedBy": "paul lecomte",
-  "createdAt": {
-    "$date": "2024-12-04T08:27:01.119Z"
-  },
-  "updatedAt": {
-    "$date": "2024-12-04T08:27:01.119Z"
-  },
-  "__v": 0
-},
-{
-  "_id": {
     "$oid": "6750197274991afd78f30fe5"
   },
   "furnitureId": {
@@ -6270,6 +6175,1186 @@
   },
   "updatedAt": {
     "$date": "2025-01-27T11:31:48.391Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a46e88abc858212d630cdc"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": 1,
+  "movementType": "IN",
+  "quantity": 26,
+  "modifiedBy": "paul lecomte",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:10:48.007Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:10:48.007Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a46e8aabc858212d630ce7"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": 1,
+  "movementType": "IN",
+  "quantity": 27,
+  "modifiedBy": "paul lecomte",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:10:50.336Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:10:50.336Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a46eb5abc858212d630d0f"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": -1,
+  "movementType": "OUT",
+  "quantity": 26,
+  "modifiedBy": "paul lecomte",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:11:33.358Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:11:33.358Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a46eb5abc858212d630d1a"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": -1,
+  "movementType": "OUT",
+  "quantity": 25,
+  "modifiedBy": "paul lecomte",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:11:33.712Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:11:33.712Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a46eb6abc858212d630d25"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": -1,
+  "movementType": "OUT",
+  "quantity": 24,
+  "modifiedBy": "paul lecomte",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:11:34.084Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:11:34.084Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a46eb6abc858212d630d30"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": -1,
+  "movementType": "OUT",
+  "quantity": 23,
+  "modifiedBy": "paul lecomte",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:11:34.564Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:11:34.564Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a46eb7abc858212d630d3b"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": -1,
+  "movementType": "OUT",
+  "quantity": 22,
+  "modifiedBy": "paul lecomte",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:11:35.057Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:11:35.057Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a46ebaabc858212d630d46"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": -1,
+  "movementType": "OUT",
+  "quantity": 21,
+  "modifiedBy": "paul lecomte",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:11:38.233Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:11:38.233Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a46ebbabc858212d630d52"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": -1,
+  "movementType": "OUT",
+  "quantity": 20,
+  "modifiedBy": "paul lecomte",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:11:39.177Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:11:39.177Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a46f8720b48accfbc58a95"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": -1,
+  "movementType": "OUT",
+  "quantity": 19,
+  "modifiedBy": "paul lecomte",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:15:03.500Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:15:03.500Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a46f9020b48accfbc58aa0"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": 1,
+  "movementType": "IN",
+  "quantity": 20,
+  "modifiedBy": "paul lecomte",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:15:12.140Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:15:12.140Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a4700346592a30c803a903"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": 1,
+  "movementType": "IN",
+  "quantity": 21,
+  "modifiedBy": "paul lecomte",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:17:07.216Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:17:07.216Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a4700746592a30c803a90e"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": 1,
+  "movementType": "IN",
+  "quantity": 22,
+  "modifiedBy": "paul lecomte",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:17:11.240Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:17:11.240Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a4700d46592a30c803a919"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": -1,
+  "movementType": "OUT",
+  "quantity": 21,
+  "modifiedBy": "paul lecomte",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:17:17.303Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:17:17.303Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a4700d46592a30c803a924"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": -1,
+  "movementType": "OUT",
+  "quantity": 20,
+  "modifiedBy": "paul lecomte",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:17:17.706Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:17:17.706Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a4722d46592a30c803a939"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": 1,
+  "movementType": "IN",
+  "quantity": 21,
+  "modifiedBy": "paul lecomte",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:26:21.891Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:26:21.891Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a4722e46592a30c803a944"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": 1,
+  "movementType": "IN",
+  "quantity": 22,
+  "modifiedBy": "paul lecomte",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:26:22.272Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:26:22.272Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a4722e46592a30c803a94f"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": 1,
+  "movementType": "IN",
+  "quantity": 23,
+  "modifiedBy": "paul lecomte",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:26:22.658Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:26:22.658Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a4723046592a30c803a95a"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": 1,
+  "movementType": "IN",
+  "quantity": 24,
+  "modifiedBy": "paul lecomte",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:26:24.832Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:26:24.832Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a4723246592a30c803a965"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": 1,
+  "movementType": "IN",
+  "quantity": 25,
+  "modifiedBy": "paul lecomte",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:26:26.374Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:26:26.374Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a472b346592a30c803aa38"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": -1,
+  "movementType": "OUT",
+  "quantity": 24,
+  "modifiedBy": "pierre admin",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:28:35.998Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:28:35.998Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a472b446592a30c803aa42"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": -1,
+  "movementType": "OUT",
+  "quantity": 23,
+  "modifiedBy": "pierre admin",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:28:36.419Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:28:36.419Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a472b446592a30c803aa4c"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": -1,
+  "movementType": "OUT",
+  "quantity": 22,
+  "modifiedBy": "pierre admin",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:28:36.878Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:28:36.878Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a472b546592a30c803aa56"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": -1,
+  "movementType": "OUT",
+  "quantity": 21,
+  "modifiedBy": "pierre admin",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:28:37.455Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:28:37.455Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a472b646592a30c803aa60"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": -1,
+  "movementType": "OUT",
+  "quantity": 20,
+  "modifiedBy": "pierre admin",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:28:38.067Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:28:38.067Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a472b746592a30c803aa6a"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": -1,
+  "movementType": "OUT",
+  "quantity": 19,
+  "modifiedBy": "pierre admin",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:28:39.009Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:28:39.009Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a4741946592a30c803ac0a"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": -1,
+  "movementType": "OUT",
+  "quantity": 18,
+  "modifiedBy": "paul lecomte",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:34:33.555Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:34:33.555Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a475ae90e58b184d51a21f"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": 1,
+  "movementType": "IN",
+  "quantity": 19,
+  "modifiedBy": "paul lecomte",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:41:18.506Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:41:18.506Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a475af90e58b184d51a22a"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": 1,
+  "movementType": "IN",
+  "quantity": 20,
+  "modifiedBy": "paul lecomte",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:41:19.157Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:41:19.157Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a475af90e58b184d51a235"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": 1,
+  "movementType": "IN",
+  "quantity": 21,
+  "modifiedBy": "paul lecomte",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:41:19.411Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:41:19.411Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a475af90e58b184d51a240"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": 1,
+  "movementType": "IN",
+  "quantity": 22,
+  "modifiedBy": "paul lecomte",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:41:19.677Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:41:19.677Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a475af90e58b184d51a24b"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": 1,
+  "movementType": "IN",
+  "quantity": 23,
+  "modifiedBy": "paul lecomte",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:41:19.959Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:41:19.959Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a475b090e58b184d51a256"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": 1,
+  "movementType": "IN",
+  "quantity": 24,
+  "modifiedBy": "paul lecomte",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:41:20.576Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:41:20.576Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a475b190e58b184d51a261"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": 1,
+  "movementType": "IN",
+  "quantity": 25,
+  "modifiedBy": "paul lecomte",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:41:21.608Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:41:21.608Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a4762490e58b184d51a2a0"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": -1,
+  "movementType": "OUT",
+  "quantity": 24,
+  "modifiedBy": "pierre admin",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:43:16.129Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:43:16.129Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a4762490e58b184d51a2aa"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": -1,
+  "movementType": "OUT",
+  "quantity": 23,
+  "modifiedBy": "pierre admin",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:43:16.306Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:43:16.306Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a4762490e58b184d51a2b4"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": -1,
+  "movementType": "OUT",
+  "quantity": 22,
+  "modifiedBy": "pierre admin",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:43:16.502Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:43:16.502Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a4762490e58b184d51a2be"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": -1,
+  "movementType": "OUT",
+  "quantity": 21,
+  "modifiedBy": "pierre admin",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:43:16.682Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:43:16.682Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a4762590e58b184d51a2c8"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": -1,
+  "movementType": "OUT",
+  "quantity": 20,
+  "modifiedBy": "pierre admin",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:43:17.516Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:43:17.516Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a4762690e58b184d51a2d2"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": -1,
+  "movementType": "OUT",
+  "quantity": 19,
+  "modifiedBy": "pierre admin",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:43:18.325Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:43:18.325Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a4763e90e58b184d51a30f"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": -1,
+  "movementType": "OUT",
+  "quantity": 18,
+  "modifiedBy": "paul lecomte",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-06T08:43:42.083Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-06T08:43:42.083Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a5e0258bfd4334ff02cc33"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": -1,
+  "movementType": "OUT",
+  "quantity": 17,
+  "modifiedBy": "paul lecomte",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-07T10:27:49.206Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-07T10:27:49.206Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a5e0258bfd4334ff02cc3e"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": -1,
+  "movementType": "OUT",
+  "quantity": 16,
+  "modifiedBy": "paul lecomte",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-07T10:27:49.915Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-07T10:27:49.915Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a5e0268bfd4334ff02cc49"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": 1,
+  "movementType": "IN",
+  "quantity": 17,
+  "modifiedBy": "paul lecomte",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-07T10:27:50.854Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-07T10:27:50.854Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a5e0278bfd4334ff02cc54"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": 1,
+  "movementType": "IN",
+  "quantity": 18,
+  "modifiedBy": "paul lecomte",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-07T10:27:51.407Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-07T10:27:51.407Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a9f83c2da2fa5e826e0925"
+  },
+  "furnitureId": {
+    "$oid": "674198bb71ae89884f63495b"
+  },
+  "quantityChange": -104,
+  "movementType": "OUT",
+  "quantity": 15,
+  "modifiedBy": "compta alfonse",
+  "name": "Table",
+  "createdAt": {
+    "$date": "2025-02-10T12:59:40.572Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-10T12:59:40.572Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ab15c1d830b286ea4f9673"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": 1,
+  "movementType": "IN",
+  "quantity": 19,
+  "modifiedBy": "compta alfonse",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-11T09:17:53.915Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-11T09:17:53.915Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ab15c1d830b286ea4f9678"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": 1,
+  "movementType": "IN",
+  "quantity": 20,
+  "modifiedBy": "compta alfonse",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-11T09:17:53.965Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-11T09:17:53.965Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ab2142d830b286ea4f973c"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": 1,
+  "movementType": "IN",
+  "quantity": 21,
+  "modifiedBy": "compta alfonse",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-11T10:06:58.406Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-11T10:06:58.406Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ab2142d830b286ea4f9746"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": 1,
+  "movementType": "IN",
+  "quantity": 22,
+  "modifiedBy": "compta alfonse",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-11T10:06:58.979Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-11T10:06:58.979Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ab2143d830b286ea4f9750"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": 1,
+  "movementType": "IN",
+  "quantity": 23,
+  "modifiedBy": "compta alfonse",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-11T10:06:59.712Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-11T10:06:59.712Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ab2270d830b286ea4f97a1"
+  },
+  "furnitureId": {
+    "$oid": "67ab2190d830b286ea4f9767"
+  },
+  "quantityChange": 1,
+  "movementType": "IN",
+  "quantity": 46,
+  "modifiedBy": "compta alfonse",
+  "name": "lit",
+  "createdAt": {
+    "$date": "2025-02-11T10:12:00.217Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-11T10:12:00.217Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ab2270d830b286ea4f97ac"
+  },
+  "furnitureId": {
+    "$oid": "67ab2190d830b286ea4f9767"
+  },
+  "quantityChange": 1,
+  "movementType": "IN",
+  "quantity": 47,
+  "modifiedBy": "compta alfonse",
+  "name": "lit",
+  "createdAt": {
+    "$date": "2025-02-11T10:12:00.634Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-11T10:12:00.634Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ab2271d830b286ea4f97b7"
+  },
+  "furnitureId": {
+    "$oid": "67ab2190d830b286ea4f9767"
+  },
+  "quantityChange": 1,
+  "movementType": "IN",
+  "quantity": 48,
+  "modifiedBy": "compta alfonse",
+  "name": "lit",
+  "createdAt": {
+    "$date": "2025-02-11T10:12:01.090Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-11T10:12:01.090Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ab2271d830b286ea4f97c2"
+  },
+  "furnitureId": {
+    "$oid": "67ab2190d830b286ea4f9767"
+  },
+  "quantityChange": 1,
+  "movementType": "IN",
+  "quantity": 49,
+  "modifiedBy": "compta alfonse",
+  "name": "lit",
+  "createdAt": {
+    "$date": "2025-02-11T10:12:01.852Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-11T10:12:01.852Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ab2272d830b286ea4f97cd"
+  },
+  "furnitureId": {
+    "$oid": "67ab2190d830b286ea4f9767"
+  },
+  "quantityChange": 1,
+  "movementType": "IN",
+  "quantity": 50,
+  "modifiedBy": "compta alfonse",
+  "name": "lit",
+  "createdAt": {
+    "$date": "2025-02-11T10:12:02.180Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-11T10:12:02.180Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ab2273d830b286ea4f97d8"
+  },
+  "furnitureId": {
+    "$oid": "67ab2190d830b286ea4f9767"
+  },
+  "quantityChange": 1,
+  "movementType": "IN",
+  "quantity": 51,
+  "modifiedBy": "compta alfonse",
+  "name": "lit",
+  "createdAt": {
+    "$date": "2025-02-11T10:12:03.700Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-11T10:12:03.700Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ac49c0bc9ff5ad4ea29b5c"
+  },
+  "furnitureId": {
+    "$oid": "674198bb71ae89884f63495b"
+  },
+  "quantityChange": 0,
+  "movementType": "OUT",
+  "quantity": 15,
+  "modifiedBy": "compta alfonse",
+  "name": "Table",
+  "createdAt": {
+    "$date": "2025-02-12T07:12:00.367Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-12T07:12:00.367Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ac49c8bc9ff5ad4ea29b63"
+  },
+  "furnitureId": {
+    "$oid": "674571a8118c923680fe1efb"
+  },
+  "quantityChange": 0,
+  "movementType": "OUT",
+  "quantity": 23,
+  "modifiedBy": "compta alfonse",
+  "name": "chaise",
+  "createdAt": {
+    "$date": "2025-02-12T07:12:08.978Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-12T07:12:08.978Z"
   },
   "__v": 0
 }]
