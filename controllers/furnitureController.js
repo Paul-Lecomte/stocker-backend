@@ -173,7 +173,7 @@ const updateFurniture = asyncHandler(async (req, res) => {
     res.status(200).json(furniture);
 });
 
-// @desc     Delete furniture item and its picture
+// @desc     Delete furniture item and its picture and the movements
 // @route    DELETE /api/furniture/delete/:_id
 // @access   private
 const deleteFurniture = asyncHandler(async (req, res) => {
@@ -190,9 +190,12 @@ const deleteFurniture = asyncHandler(async (req, res) => {
         });
     }
 
+    // Delete all movements associated with this furniture item
+    await StockMovement.deleteMany({ furnitureId: req.params._id });
+
     await Furniture.findByIdAndDelete(req.params._id);
 
-    res.status(200).json({ message: "Furniture item and picture deleted successfully" });
+    res.status(200).json({ message: "Furniture item, picture and movements deleted successfully" });
 });
 
 // @desc     Increment furniture quantity
