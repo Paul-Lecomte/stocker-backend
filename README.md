@@ -91,7 +91,7 @@ EMAIL_PASS=your-app-password
 
 ## Premade Users
 
-If you use the default users table, here are three premade accounts for testing:
+If you use the given users table, here are three premade accounts for testing:
 
 | Role        | Email                  | Password |
 |-------------|------------------------|-----|
